@@ -183,7 +183,7 @@ const TEXT: Record<Locale, Labels> = {
 export function PricingCalculatorClient({ locale }: { locale: Locale }) {
   const labels = TEXT[locale];
   const [hasSite, setHasSite] = useState<"yes" | "no">("no");
-  const [contractYears, setContractYears] = useState<1 | 3>(1);
+  const [contractYears, setContractYears] = useState<1 | 3>(3);
   const [concurrentInput, setConcurrentInput] = useState("50");
   const [dailyInput, setDailyInput] = useState("100");
 

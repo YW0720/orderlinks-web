@@ -197,7 +197,7 @@ export default function ScrollRevealObserver() {
     if (supportsFinePointer && magneticElements.length > 0) {
       magneticElements.forEach((element) => {
         const magneticFactor = Number(element.dataset.magneticFactor ?? "8");
-        const maxOffset = Number.isNaN(magneticFactor) ? 8 : Math.min(Math.max(magneticFactor, 3), 16);
+        const maxOffset = Number.isNaN(magneticFactor) ? 5 : Math.min(Math.max(magneticFactor, 2), 10);
         const layeredNodes = Array.from(
           element.querySelectorAll<HTMLElement>("[data-magnetic-layer-factor]"),
         );
@@ -227,9 +227,9 @@ export default function ScrollRevealObserver() {
 
           layeredNodes.forEach((layer) => {
             const layerFactorRaw = Number(layer.dataset.magneticLayerFactor ?? "1.4");
-            const layerFactor = Number.isNaN(layerFactorRaw) ? 1.4 : Math.min(Math.max(layerFactorRaw, 0.6), 2.6);
-            const layerX = Math.max(Math.min(offsetX * layerFactor, 22), -22);
-            const layerY = Math.max(Math.min(offsetY * layerFactor, 22), -22);
+            const layerFactor = Number.isNaN(layerFactorRaw) ? 1.2 : Math.min(Math.max(layerFactorRaw, 0.6), 1.8);
+            const layerX = Math.max(Math.min(offsetX * layerFactor * 0.66, 13), -13);
+            const layerY = Math.max(Math.min(offsetY * layerFactor * 0.66, 13), -13);
             layer.style.setProperty("--magnetic-layer-x", `${layerX.toFixed(2)}px`);
             layer.style.setProperty("--magnetic-layer-y", `${layerY.toFixed(2)}px`);
           });
