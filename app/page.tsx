@@ -588,7 +588,6 @@ const CONTACT_TEXT: Record<
     email: string;
     phone: string;
     whatsapp: string;
-    wechat: string;
   }
 > = {
   zh: {
@@ -598,7 +597,6 @@ const CONTACT_TEXT: Record<
     email: "邮件咨询",
     phone: "电话咨询",
     whatsapp: "WhatsApp",
-    wechat: "微信",
   },
   en: {
     title: "Contact Us",
@@ -607,7 +605,6 @@ const CONTACT_TEXT: Record<
     email: "Email",
     phone: "Phone",
     whatsapp: "WhatsApp",
-    wechat: "WeChat",
   },
   fr: {
     title: "Contact",
@@ -616,7 +613,6 @@ const CONTACT_TEXT: Record<
     email: "E-mail",
     phone: "Telephone",
     whatsapp: "WhatsApp",
-    wechat: "WeChat",
   },
   de: {
     title: "Kontakt",
@@ -625,7 +621,6 @@ const CONTACT_TEXT: Record<
     email: "E-Mail",
     phone: "Telefon",
     whatsapp: "WhatsApp",
-    wechat: "WeChat",
   },
 };
 
@@ -764,18 +759,24 @@ export default async function Home({ searchParams }: PageProps) {
           </Link>
           <nav className="flex w-full items-center gap-2 text-sm sm:w-auto">
             <Link
-              className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              className="nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
               href={`/pricing-calculator?lang=${locale}`}
+              data-magnetic-factor="4"
             >
-              {dict.nav.calculator}
+              <span className="magnetic-layer inline-block" data-magnetic-layer-factor="1.5">
+                {dict.nav.calculator}
+              </span>
             </Link>
             <Link
-              className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              className="nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
               href="https://orderlinks.ch"
               target="_blank"
               rel="noreferrer"
+              data-magnetic-factor="4"
             >
-              {dict.nav.demo}
+              <span className="magnetic-layer inline-block" data-magnetic-layer-factor="1.5">
+                {dict.nav.demo}
+              </span>
             </Link>
             <details className="lang-switcher relative sm:hidden">
               <summary className="nav-chip block cursor-pointer px-3 py-2 text-center text-xs">
@@ -828,34 +829,66 @@ export default async function Home({ searchParams }: PageProps) {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href={`/pricing-calculator?lang=${locale}`}
-                className="cta-primary"
+                className="group cta-primary magnetic magnetic-soft"
+                data-magnetic-factor="7"
               >
-                {dict.hero.ctaPrimary}
+                <span className="magnetic-layer inline-flex items-center gap-1" data-magnetic-layer-factor="1.6">
+                  <span>{dict.hero.ctaPrimary}</span>
+                  <span aria-hidden className="text-sm transition group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </span>
               </Link>
               <Link
                 href="https://orderlinks.ch"
                 target="_blank"
                 rel="noreferrer"
-                className="cta-secondary"
+                className="group cta-secondary magnetic magnetic-soft"
+                data-magnetic-factor="7"
               >
-                {dict.hero.ctaSecondary}
+                <span className="magnetic-layer inline-flex items-center gap-1" data-magnetic-layer-factor="1.6">
+                  <span>{dict.hero.ctaSecondary}</span>
+                  <span aria-hidden className="text-sm">
+                    ↗
+                  </span>
+                </span>
               </Link>
             </div>
           </div>
           <div
-            className="glass-section hover-lift relative overflow-hidden rounded-2xl p-5 sm:p-6"
+            className="glass-section hover-lift magnetic magnetic-soft kinetic-shell relative rounded-2xl p-5 sm:p-6"
             data-reveal
             data-reveal-delay="120"
             data-reveal-direction="left"
+            data-magnetic-factor="6"
           >
-            <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-black/6 blur-2xl" />
-            <div className="absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-neutral-400/20 blur-2xl" />
-            <div className="absolute right-6 top-6 h-20 w-20 rounded-full border border-black/12" />
-            <div className="absolute right-10 top-10 h-12 w-12 rounded-full border border-black/10" />
-            <div className="absolute left-6 top-[46%] h-px w-[72%] bg-linear-to-r from-black/10 to-transparent" />
-            <div className="relative flex min-h-[260px] flex-col justify-between rounded-xl border border-black/10 bg-white/82 p-5">
-              <div className="flex items-center gap-4">
-                <div className="relative">
+            <div
+              className="magnetic-layer depth-layer-far absolute -right-10 -top-10 h-44 w-44 rounded-full bg-black/6 blur-2xl"
+              data-magnetic-layer-factor="0.8"
+            />
+            <div
+              className="magnetic-layer depth-layer-far absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-neutral-400/20 blur-2xl"
+              data-magnetic-layer-factor="0.85"
+            />
+            <div
+              className="magnetic-layer depth-layer-mid absolute right-6 top-6 h-20 w-20 rounded-full border border-black/12"
+              data-magnetic-layer-factor="1.25"
+            />
+            <div
+              className="magnetic-layer depth-layer-near absolute right-10 top-10 h-12 w-12 rounded-full border border-black/10"
+              data-magnetic-layer-factor="1.5"
+            />
+            <div
+              className="magnetic-layer depth-layer-mid absolute left-6 top-[46%] h-px w-[72%] bg-linear-to-r from-black/10 to-transparent"
+              data-magnetic-layer-factor="1.15"
+            />
+            <div
+              className="tilt-interactive premium-soft magnetic-layer depth-layer-mid relative flex min-h-[260px] flex-col justify-between rounded-xl p-5"
+              data-tilt-factor="8"
+              data-magnetic-layer-factor="1.1"
+            >
+              <div className="magnetic-layer depth-layer-mid flex items-center gap-4" data-magnetic-layer-factor="1.35">
+                <div className="magnetic-layer depth-layer-near relative" data-magnetic-layer-factor="1.8">
                   <div className="absolute -inset-2 rounded-2xl bg-black/8 blur-md" />
                   <Image
                     src={withAssetVersion("/logo.png")}
@@ -865,26 +898,35 @@ export default async function Home({ searchParams }: PageProps) {
                     className="relative rounded-xl border border-black/10 bg-white p-1.5"
                   />
                 </div>
-                <div>
+                <div className="magnetic-layer depth-layer-near" data-magnetic-layer-factor="1.45">
                   <p className="section-title text-lg font-semibold tracking-wide">OrderLinks</p>
                   <p className="text-xs text-neutral-600">Restaurant Operating Platform</p>
                 </div>
               </div>
-              <div className="space-y-3">
+              <div className="magnetic-layer depth-layer-mid space-y-3" data-magnetic-layer-factor="1.25">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-neutral-900" />
+                  <span className="magnetic-layer depth-layer-near h-2 w-2 rounded-full bg-neutral-900" data-magnetic-layer-factor="1.9" />
                   <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-neutral-500">
                     Swiss-ready, multilingual, conversion focused
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                  <div
+                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    data-magnetic-layer-factor="2"
+                  >
                     Website
                   </div>
-                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                  <div
+                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    data-magnetic-layer-factor="2.15"
+                  >
                     Ordering
                   </div>
-                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                  <div
+                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    data-magnetic-layer-factor="2.3"
+                  >
                     POS
                   </div>
                 </div>
@@ -904,31 +946,37 @@ export default async function Home({ searchParams }: PageProps) {
               return (
                 <article
                   key={feature.title}
-                  className="feature-card"
+                  className="feature-card magnetic magnetic-soft"
+                  data-magnetic-factor="6"
                   data-reveal
                   data-reveal-direction="up"
                   data-reveal-delay={String((index % 6) * 60)}
                 >
                   <div
-                    className={`grid gap-3 ${
+                    className={`magnetic-layer depth-layer-mid grid gap-3 ${
                       feature.medias.length > 1
                         ? hasDevicePairLayout
                           ? "sm:grid-cols-12"
                           : "sm:grid-cols-2"
                         : "grid-cols-1"
                     }`}
+                    data-magnetic-layer-factor="1.2"
                   >
                     {feature.medias.map((media, mediaIndex) => (
                       <div
                         key={`${feature.title}-${media.src}-${mediaIndex}`}
-                        className={`relative overflow-hidden rounded-xl border border-black/10 bg-[#f8f8f8] ${
+                        className={`magnetic-layer depth-layer-near relative overflow-hidden rounded-xl border border-black/10 bg-[#f8f8f8] ${
                           feature.medias.length > 1
                             ? "flex h-[360px] items-center justify-center p-3 sm:h-[400px] lg:h-[430px]"
                             : ""
                         } ${hasDevicePairLayout ? (media.portrait ? "sm:col-span-5" : "sm:col-span-7") : ""}`}
+                        data-magnetic-layer-factor={String(1.45 + mediaIndex * 0.15)}
                       >
                         {media.role ? (
-                          <span className="absolute left-2 top-2 z-10 rounded-full border border-black/10 bg-white/90 px-2 py-1 text-[11px] font-semibold text-neutral-700">
+                          <span
+                            className="magnetic-layer depth-layer-near absolute left-2 top-2 z-10 rounded-full border border-black/10 bg-white/90 px-2 py-1 text-[11px] font-semibold text-neutral-700"
+                            data-magnetic-layer-factor="2"
+                          >
                             {media.role}
                           </span>
                         ) : null}
@@ -967,16 +1015,19 @@ export default async function Home({ searchParams }: PageProps) {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-5 space-y-3">
-                    <h3 className="text-lg font-semibold leading-snug">
+                  <div className="magnetic-layer depth-layer-mid mt-5 space-y-3" data-magnetic-layer-factor="1.15">
+                    <h3 className="magnetic-layer depth-layer-near text-lg font-semibold leading-snug" data-magnetic-layer-factor="1.55">
                       {feature.title}
                       {feature.soon ? (
-                        <span className="ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs font-medium text-white">
+                        <span
+                          className="magnetic-layer ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs font-medium text-white"
+                          data-magnetic-layer-factor="2.05"
+                        >
                           Soon
                         </span>
                       ) : null}
                     </h3>
-                    <p className="text-sm leading-relaxed text-neutral-700">
+                    <p className="magnetic-layer depth-layer-far text-sm leading-relaxed text-neutral-700" data-magnetic-layer-factor="1.05">
                       {feature.description}
                     </p>
                   </div>
@@ -997,13 +1048,24 @@ export default async function Home({ searchParams }: PageProps) {
             {dict.faq.map((item) => (
               <article
                 key={item.q}
-                className="hover-lift rounded-xl border border-black/10 bg-[#fafafa] p-4"
+                className="hover-lift magnetic magnetic-soft kinetic-shell rounded-xl border border-black/10 bg-[#fafafa] p-0"
+                data-magnetic-factor="5"
                 data-reveal
                 data-reveal-delay="80"
                 data-reveal-direction="up"
               >
-                <h3 className="text-base font-semibold">{item.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-700">{item.a}</p>
+                <div
+                  className="tilt-interactive magnetic-layer depth-layer-mid premium-soft rounded-xl p-4"
+                  data-tilt-factor="6"
+                  data-magnetic-layer-factor="1.2"
+                >
+                  <h3 className="magnetic-layer depth-layer-near text-base font-semibold" data-magnetic-layer-factor="1.55">
+                    {item.q}
+                  </h3>
+                  <p className="magnetic-layer depth-layer-far mt-2 text-sm leading-relaxed text-neutral-700" data-magnetic-layer-factor="1.05">
+                    {item.a}
+                  </p>
+                </div>
               </article>
             ))}
           </div>
@@ -1016,36 +1078,96 @@ export default async function Home({ searchParams }: PageProps) {
         >
           <h2 className="section-title text-2xl font-semibold sm:text-3xl">{contact.title}</h2>
           <p className="text-neutral-700">{contact.subtitle}</p>
-          <div className="space-y-2 pt-2 text-sm text-[#2d2d2d]">
-            <p>
-              <span className="mr-1">{contact.email}:</span>
-              <a className="underline underline-offset-4" href="mailto:order.links.26@gmail.com">
-                order.links.26@gmail.com
-              </a>
-            </p>
-            <p>
-              <span className="mr-1">{contact.phone}:</span>
-              <a className="underline underline-offset-4" href="tel:+41782495983">
-                +41 78 249 59 83
-              </a>
-            </p>
-            <p>
-              <span className="mr-1">{contact.whatsapp}:</span>
-              <a
-                className="underline underline-offset-4"
-                href="https://wa.me/41782495983"
-                target="_blank"
-                rel="noreferrer"
-              >
-                +41 78 249 59 83
-              </a>
-            </p>
-            <p>
-              <span className="mr-1">{contact.wechat}:</span>
-              <a className="underline underline-offset-4" href="weixin://dl/chat?wh30482275">
-                wh30482275
-              </a>
-            </p>
+          <div className="grid gap-3 pt-2 sm:grid-cols-2 lg:grid-cols-3">
+            <a
+              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
+              href="mailto:order.links.26@gmail.com"
+              data-magnetic-factor="5"
+            >
+              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
+                    data-magnetic-layer-factor="1.9"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3.75 7.5 12 13.25 20.25 7.5" />
+                      <rect x="3.75" y="5.25" width="16.5" height="13.5" rx="2.25" strokeWidth="1.8" />
+                    </svg>
+                  </span>
+                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
+                    {contact.email}
+                  </p>
+                </div>
+                <p
+                  className="magnetic-layer mt-2 break-all text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
+                  data-magnetic-layer-factor="1.1"
+                >
+                  order.links.26@gmail.com
+                </p>
+              </div>
+            </a>
+            <a
+              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
+              href="tel:+41782495983"
+              data-magnetic-factor="5"
+            >
+              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
+                    data-magnetic-layer-factor="1.9"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.8"
+                        d="M4.8 6.2a2 2 0 0 1 2.08-1.1l2.2.44a2 2 0 0 1 1.6 1.58l.27 1.34a2 2 0 0 1-.58 1.86l-1.06 1.06a14.2 14.2 0 0 0 4.3 4.3l1.06-1.06a2 2 0 0 1 1.86-.58l1.34.27a2 2 0 0 1 1.58 1.6l.44 2.2a2 2 0 0 1-1.1 2.08l-1.19.6c-.78.39-1.67.44-2.48.13a19.2 19.2 0 0 1-11.9-11.9 2.9 2.9 0 0 1 .13-2.48l.6-1.19Z"
+                      />
+                    </svg>
+                  </span>
+                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
+                    {contact.phone}
+                  </p>
+                </div>
+                <p
+                  className="magnetic-layer mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
+                  data-magnetic-layer-factor="1.1"
+                >
+                  +41 78 249 59 83
+                </p>
+              </div>
+            </a>
+            <a
+              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6 sm:col-span-2 lg:col-span-1"
+              href="https://wa.me/41782495983"
+              target="_blank"
+              rel="noreferrer"
+              data-magnetic-factor="5"
+            >
+              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
+                    data-magnetic-layer-factor="1.9"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-current">
+                      <path d="M12 4a8 8 0 0 0-6.95 11.95L4 20l4.2-1.02A8 8 0 1 0 12 4Zm0 14.5a6.45 6.45 0 0 1-3.3-.9l-.24-.14-2.5.61.62-2.43-.16-.25A6.5 6.5 0 1 1 12 18.5Zm3.57-4.2c-.2-.1-1.16-.57-1.35-.64-.18-.06-.31-.1-.45.1-.13.2-.5.64-.61.76-.11.12-.22.14-.41.05a5.3 5.3 0 0 1-1.56-.96 5.95 5.95 0 0 1-1.1-1.37c-.11-.2-.01-.3.08-.4.09-.09.2-.22.3-.33.1-.12.13-.2.2-.34.07-.13.03-.24-.02-.34-.05-.1-.45-1.07-.61-1.47-.16-.38-.33-.33-.45-.34h-.38a.73.73 0 0 0-.53.25c-.18.2-.69.68-.69 1.66 0 .97.71 1.91.8 2.04.1.13 1.4 2.13 3.4 2.99.47.2.84.31 1.13.4.47.15.9.13 1.24.08.38-.06 1.16-.47 1.33-.92.16-.45.16-.84.11-.92-.05-.08-.18-.13-.38-.23Z" />
+                    </svg>
+                  </span>
+                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
+                    {contact.whatsapp}
+                  </p>
+                </div>
+                <p
+                  className="magnetic-layer mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
+                  data-magnetic-layer-factor="1.1"
+                >
+                  +41 78 249 59 83
+                </p>
+              </div>
+            </a>
           </div>
           <p className="text-sm text-neutral-700">{contact.hours}</p>
         </section>

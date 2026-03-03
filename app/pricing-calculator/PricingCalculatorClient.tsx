@@ -25,8 +25,6 @@ type Labels = {
   phone: string;
   phoneHours: string;
   whatsapp: string;
-  wechat: string;
-  wechatId: string;
   processTitle: string;
   processDesc: string;
 };
@@ -34,7 +32,6 @@ type Labels = {
 const PHONE_DISPLAY = "+41 78 249 59 83";
 const PHONE_DIAL = "+41782495983";
 const EMAIL = "order.links.26@gmail.com";
-const WECHAT_ID = "wh30482275";
 const WHATSAPP_LINK = "https://wa.me/41782495983";
 const SETUP_FEE = 500;
 const BASE_MONTHLY = 89;
@@ -102,8 +99,6 @@ const TEXT: Record<Locale, Labels> = {
     phone: "电话",
     phoneHours: "电话接通时间：工作日 18:00-21:00，周末 10:00-22:00",
     whatsapp: "WhatsApp",
-    wechat: "微信",
-    wechatId: "微信号",
     processTitle: "上线流程与支付说明",
     processDesc:
       "请将以上选项信息与餐厅资料（名字、地址、电话号码、邮箱、域名、简短描述、餐厅图片及描述）发送给我们，我们会先与您确认实施方案与上线排期。方案确认后，支付 200 CHF 作为项目确认金；通常 5-10 天可完成上线。网站正式交付后，再支付剩余 300 CHF，月费从交付日期开始计算。",
@@ -129,8 +124,6 @@ const TEXT: Record<Locale, Labels> = {
     phone: "Phone",
     phoneHours: "Phone support hours: Weekdays 18:00-21:00, Weekends 10:00-22:00",
     whatsapp: "WhatsApp (with selected options)",
-    wechat: "WeChat (without options)",
-    wechatId: "WeChat ID",
     processTitle: "Launch process and payment notes",
     processDesc:
       "Please send us your selected options together with restaurant details (name, address, phone number, email, domain, short description, and restaurant images with captions). We will first confirm the implementation plan and launch schedule with you. Once the plan is confirmed, a 200 CHF project deposit can be arranged. Launch is usually completed within 5-10 days. After final delivery, the remaining 300 CHF is settled, and the monthly fee starts from the delivery date.",
@@ -156,8 +149,6 @@ const TEXT: Record<Locale, Labels> = {
     phone: "Téléphone",
     phoneHours: "Disponibilité : jours ouvrables 18:00-21:00, week-end 10:00-22:00",
     whatsapp: "WhatsApp (avec options sélectionnées)",
-    wechat: "WeChat (sans options)",
-    wechatId: "ID WeChat",
     processTitle: "Mise en ligne et modalités de paiement",
     processDesc:
       "Merci de nous envoyer les options sélectionnées ainsi que les informations du restaurant (nom, adresse, téléphone, e-mail, domaine, courte description, images du restaurant et leurs descriptions). Nous confirmerons d'abord avec vous le plan de mise en oeuvre et le planning de mise en ligne. Une fois le plan validé, un acompte de confirmation de 200 CHF pourra etre regle. La mise en ligne est generalement finalisee sous 5-10 jours. Apres la livraison officielle du site, le solde de 300 CHF est regle, puis l'abonnement mensuel demarre a partir de la date de livraison.",
@@ -183,8 +174,6 @@ const TEXT: Record<Locale, Labels> = {
     phone: "Telefon",
     phoneHours: "Telefonzeiten: Werktage 18:00-21:00, Wochenende 10:00-22:00",
     whatsapp: "WhatsApp (mit ausgewählten Optionen)",
-    wechat: "WeChat (ohne Optionen)",
-    wechatId: "WeChat-ID",
     processTitle: "Go-live Ablauf und Zahlungsinfo",
     processDesc:
       "Bitte senden Sie uns die ausgewaehlten Optionen zusammen mit den Restaurantdaten (Name, Adresse, Telefonnummer, E-Mail, Domain, kurze Beschreibung sowie Restaurantbilder mit Beschreibung). Wir stimmen zunaechst gemeinsam mit Ihnen den Umsetzungsplan und den Go-live Zeitplan ab. Nach Bestaetigung des Plans kann eine Projektanzahlung von 200 CHF geleistet werden. Der Go-live ist in der Regel innerhalb von 5-10 Tagen abgeschlossen. Nach der finalen Uebergabe werden die restlichen 300 CHF beglichen; die monatliche Gebuehr beginnt ab dem Lieferdatum.",
@@ -352,39 +341,63 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
       <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
         <h2 className="section-title text-2xl font-semibold">{labels.contactTitle}</h2>
         <p className="mt-2 text-sm text-[#4a4a4a]">{labels.note}</p>
-        <div className="mt-4 space-y-2 text-sm text-[#2d2d2d]">
-          <p>
-            <span className="mr-1">{labels.email}:</span>
-            <a className="underline underline-offset-4" href={emailHref}>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <a
+            className="group rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-4 transition hover:-translate-y-0.5 hover:border-[#121212]/35 hover:bg-[#121212]/6"
+            href={emailHref}
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white">
+                <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3.75 7.5 12 13.25 20.25 7.5" />
+                  <rect x="3.75" y="5.25" width="16.5" height="13.5" rx="2.25" strokeWidth="1.8" />
+                </svg>
+              </span>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#121212]/70">{labels.email}</p>
+            </div>
+            <p className="mt-2 break-all text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline">
               {EMAIL}
-            </a>
-          </p>
-          <p>
-            <span className="mr-1">{labels.phone}:</span>
-            <a className="underline underline-offset-4" href={`tel:${PHONE_DIAL}`}>
+            </p>
+          </a>
+          <a
+            className="group rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-4 transition hover:-translate-y-0.5 hover:border-[#121212]/35 hover:bg-[#121212]/6"
+            href={`tel:${PHONE_DIAL}`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white">
+                <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                    d="M4.8 6.2a2 2 0 0 1 2.08-1.1l2.2.44a2 2 0 0 1 1.6 1.58l.27 1.34a2 2 0 0 1-.58 1.86l-1.06 1.06a14.2 14.2 0 0 0 4.3 4.3l1.06-1.06a2 2 0 0 1 1.86-.58l1.34.27a2 2 0 0 1 1.58 1.6l.44 2.2a2 2 0 0 1-1.1 2.08l-1.19.6c-.78.39-1.67.44-2.48.13a19.2 19.2 0 0 1-11.9-11.9 2.9 2.9 0 0 1 .13-2.48l.6-1.19Z"
+                  />
+                </svg>
+              </span>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#121212]/70">{labels.phone}</p>
+            </div>
+            <p className="mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline">
               {PHONE_DISPLAY}
-            </a>
-          </p>
-          <p>
-            <span className="mr-1">{labels.whatsapp}:</span>
-            <a
-              className="underline underline-offset-4"
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
+            </p>
+          </a>
+          <a
+            className="group rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-4 transition hover:-translate-y-0.5 hover:border-[#121212]/35 hover:bg-[#121212]/6 sm:col-span-2 lg:col-span-1"
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white">
+                <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-current">
+                  <path d="M12 4a8 8 0 0 0-6.95 11.95L4 20l4.2-1.02A8 8 0 1 0 12 4Zm0 14.5a6.45 6.45 0 0 1-3.3-.9l-.24-.14-2.5.61.62-2.43-.16-.25A6.5 6.5 0 1 1 12 18.5Zm3.57-4.2c-.2-.1-1.16-.57-1.35-.64-.18-.06-.31-.1-.45.1-.13.2-.5.64-.61.76-.11.12-.22.14-.41.05a5.3 5.3 0 0 1-1.56-.96 5.95 5.95 0 0 1-1.1-1.37c-.11-.2-.01-.3.08-.4.09-.09.2-.22.3-.33.1-.12.13-.2.2-.34.07-.13.03-.24-.02-.34-.05-.1-.45-1.07-.61-1.47-.16-.38-.33-.33-.45-.34h-.38a.73.73 0 0 0-.53.25c-.18.2-.69.68-.69 1.66 0 .97.71 1.91.8 2.04.1.13 1.4 2.13 3.4 2.99.47.2.84.31 1.13.4.47.15.9.13 1.24.08.38-.06 1.16-.47 1.33-.92.16-.45.16-.84.11-.92-.05-.08-.18-.13-.38-.23Z" />
+                </svg>
+              </span>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#121212]/70">{labels.whatsapp}</p>
+            </div>
+            <p className="mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline">
               {PHONE_DISPLAY}
-            </a>
-          </p>
-          <p>
-            <span className="mr-1">{labels.wechat}:</span>
-            <a
-              className="underline underline-offset-4"
-              href={`weixin://dl/chat?${WECHAT_ID}`}
-            >
-              {WECHAT_ID}
-            </a>
-          </p>
+            </p>
+          </a>
         </div>
         <p className="mt-3 text-sm text-[#2d2d2d]">{labels.phoneHours}</p>
       </section>
