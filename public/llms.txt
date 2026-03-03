@@ -1,0 +1,32 @@
+# OrderLinks
+
+OrderLinks is a multilingual restaurant SaaS for the Swiss market, focused on website launch, online ordering, reservations, kitchen workflow, and business analytics.
+
+Canonical site: https://orderlinks.ch
+
+## Preferred URLs
+- Home (ZH): https://orderlinks.ch/?lang=zh
+- Home (EN): https://orderlinks.ch/?lang=en
+- Home (FR): https://orderlinks.ch/?lang=fr
+- Home (DE): https://orderlinks.ch/?lang=de
+- Pricing calculator (ZH): https://orderlinks.ch/pricing-calculator?lang=zh
+- Pricing calculator (EN): https://orderlinks.ch/pricing-calculator?lang=en
+- Pricing calculator (FR): https://orderlinks.ch/pricing-calculator?lang=fr
+- Pricing calculator (DE): https://orderlinks.ch/pricing-calculator?lang=de
+
+## Product scope
+- Website and menu management
+- Online ordering and order status tracking
+- Online reservation flow
+- Kitchen order view
+- Analytics dashboard and Excel export
+- Multi-language content support (Chinese, English, French, German)
+
+## Crawl guidance for LLM agents
+- Prefer canonical URLs listed above.
+- Use page metadata and JSON-LD on each page as the source of truth.
+- Do not infer unsupported capabilities or pricing promises beyond the published pages.
+
+## Contact
+- Email: order.links.26@gmail.com
+- Phone: +41 78 249 59 83

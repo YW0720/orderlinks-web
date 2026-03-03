@@ -1,64 +1,1054 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import ScrollRevealObserver from "./components/ScrollRevealObserver";
+import { LOCALE_PATHS, SITE_NAME, SITE_URL, SUPPORTED_LOCALES, type SupportedLocale } from "./lib/seo";
 
-export default function Home() {
+type Locale = SupportedLocale;
+const ASSET_VERSION = "20260303-1";
+
+function withAssetVersion(src: string) {
+  return `${src}?v=${ASSET_VERSION}`;
+}
+
+type Feature = {
+  title: string;
+  description: string;
+  medias: Array<{
+    mediaType: "image" | "video";
+    src: string;
+    alt: string;
+    role?: string;
+    portrait?: boolean;
+  }>;
+  soon?: boolean;
+};
+
+type Dictionary = {
+  seoTitle: string;
+  seoDescription: string;
+  nav: {
+    calculator: string;
+    demo: string;
+    language: string;
+  };
+  hero: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
+  section: {
+    featureTitle: string;
+    featureSubtitle: string;
+    faqTitle: string;
+    faqSubtitle: string;
+  };
+  faq: Array<{ q: string; a: string }>;
+  features: Feature[];
+};
+
+const DICTIONARY: Record<Locale, Dictionary> = {
+  zh: {
+    seoTitle: "餐厅网站定制 + 在线点餐/预约 + PoS 一体化",
+    seoDescription:
+      "OrderLinks 帮助瑞士餐厅快速上线四语网站，支持在线点餐、预约、厨房看单、统计分析与支付闭环。",
+    nav: {
+      calculator: "价格计算器",
+      demo: "查看 Demo",
+      language: "语言",
+    },
+    hero: {
+      badge: "面向瑞士餐饮市场的全链路数字化平台",
+      title: "以品牌级体验，交付可持续增长的餐厅官网与点餐系统",
+      subtitle:
+        "OrderLinks 将网站定制、在线点餐、预约、后厨协作与经营分析整合为统一方案。在保持品牌质感的同时，确保每个环节都能直接服务订单转化与运营效率。",
+      ctaPrimary: "获取专属价格测算",
+      ctaSecondary: "查看产品 Demo",
+    },
+    section: {
+      featureTitle: "核心功能",
+      featureSubtitle:
+        "从获客到复购，每个模块都围绕真实经营指标设计，帮助餐厅建立可量化、可复用的增长机制。",
+      faqTitle: "常见问题",
+      faqSubtitle: "关于上线周期、费用结构、多语能力与支付集成，这里给出明确答案。",
+    },
+    faq: [
+      {
+        q: "OrderLinks 适合哪些餐厅？",
+        a: "适合希望快速上线官网、在线点餐、预约与后厨工作流的中小型到连锁餐厅，尤其适合瑞士多语市场。",
+      },
+      {
+        q: "是否支持多语言切换？",
+        a: "支持法语、德语、英语和中文，便于面向不同地区顾客提供一致的浏览和下单体验。",
+      },
+      {
+        q: "支付能力是否集成？",
+        a: "支持 Stripe 在线付款能力，并可与餐厅业务流程结合，实现更完整的下单与支付闭环。",
+      },
+      {
+        q: "系统是否支持数据导出和经营分析？",
+        a: "支持图表化经营数据与历史订单导出 Excel，帮助餐厅进行日常复盘和决策。",
+      },
+    ],
+    features: [
+      {
+        title: "DeepL 自动翻译",
+        description: "输入一次内容，自动同步多语文案，提高菜单与页面维护效率。",
+        medias: [
+          {
+            mediaType: "video",
+            src: "/auto_translation_by_deepl.mp4",
+            alt: "DeepL API 自动翻译演示视频",
+          },
+        ],
+      },
+      {
+        title: "管理员菜单管理",
+        description: "后台灵活维护分类、价格与上架状态，快速响应日常更新。",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_menu.png",
+            alt: "管理员菜单管理功能",
+          },
+        ],
+      },
+      {
+        title: "点餐与厨房协同",
+        description: "顾客端完成点餐与菜品查看，员工端在厨房看单并高效处理订单。",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_menu_with_detail.webp",
+            alt: "顾客在线点餐与菜品详情",
+            role: "顾客端",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/KitchenOrderView.webp",
+            alt: "员工厨房看单功能",
+            role: "员工端",
+          },
+        ],
+      },
+      {
+        title: "预约与到店管理",
+        description: "顾客在线预约后，员工可快速确认并统一管理预约状态。",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_reservation.webp",
+            alt: "顾客在线预约功能",
+            role: "顾客端",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/staff_reservation.webp",
+            alt: "员工确认预约功能",
+            role: "员工端",
+          },
+        ],
+      },
+      {
+        title: "经营统计与利润测算",
+        description: "支持收入可视化统计与利润测算，帮助管理者快速复盘经营表现。",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_statis_calcul.webp",
+            alt: "管理员查看收入可视化统计和利润计算器功能",
+          },
+        ],
+      },
+      {
+        title: "历史订单导出 Excel",
+        description: "管理员可查看历史订单并一键导出 Excel，方便财务与运营整理。",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/excel.webp",
+            alt: "管理员查看历史订单并导出 Excel 功能",
+          },
+        ],
+      },
+    ],
+  },
+  en: {
+    seoTitle: "Restaurant Website + Online Ordering, Reservation and POS",
+    seoDescription:
+      "OrderLinks helps Swiss restaurants launch multilingual websites with online ordering, reservation, kitchen workflows and analytics.",
+    nav: {
+      calculator: "Pricing Calculator",
+      demo: "Open Demo",
+      language: "Language",
+    },
+    hero: {
+      badge: "End-to-end platform for premium restaurant operations",
+      title: "Deliver a brand-grade digital experience that converts",
+      subtitle:
+        "OrderLinks unifies custom website design, online ordering, reservation flow, kitchen coordination, and analytics. The result is a refined customer journey with measurable commercial impact.",
+      ctaPrimary: "Get Pricing Estimate",
+      ctaSecondary: "View Product Demo",
+    },
+    section: {
+      featureTitle: "Core Product Capabilities",
+      featureSubtitle:
+        "Every module is mapped to real business outcomes: acquisition, conversion, delivery quality, and retention.",
+      faqTitle: "Frequently Asked Questions",
+      faqSubtitle: "Clear answers on launch timeline, pricing model, multilingual setup, and payment integration.",
+    },
+    faq: [
+      {
+        q: "Who is OrderLinks built for?",
+        a: "It is designed for independent and multi-location restaurants that need a fast launch for website, ordering, reservation, and operations.",
+      },
+      {
+        q: "Does it support multiple languages?",
+        a: "Yes. The product supports French, German, English, and Chinese for the Swiss market.",
+      },
+      {
+        q: "Can online payment be integrated?",
+        a: "Stripe-based payment workflow is supported to provide a smoother order-to-payment journey.",
+      },
+      {
+        q: "Do you support data export and analytics?",
+        a: "Yes. You can view analytics dashboards and export historical orders as Excel files.",
+      },
+    ],
+    features: [
+      {
+        title: "DeepL Auto Translation",
+        description:
+          "Create content once and synchronize multilingual copy automatically for faster menu and page updates.",
+        medias: [
+          {
+            mediaType: "video",
+            src: "/auto_translation_by_deepl.mp4",
+            alt: "DeepL API automatic translation demo",
+          },
+        ],
+      },
+      {
+        title: "Admin Menu Management",
+        description:
+          "Update categories, prices, and availability from one dashboard with full operational flexibility.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_menu.png",
+            alt: "Admin menu management feature",
+          },
+        ],
+      },
+      {
+        title: "Ordering and Kitchen Collaboration",
+        description:
+          "Customers place orders with detailed menu views while kitchen staff process tickets in a synchronized workflow.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_menu_with_detail.webp",
+            alt: "Customer online ordering and dish details",
+            role: "Customer",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/KitchenOrderView.webp",
+            alt: "Kitchen order management view",
+            role: "Staff",
+          },
+        ],
+      },
+      {
+        title: "Reservation and Staff Confirmation",
+        description:
+          "Guests book online and staff confirm reservations quickly in one coordinated process.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_reservation.webp",
+            alt: "Customer reservation feature",
+            role: "Customer",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/staff_reservation.webp",
+            alt: "Staff reservation confirmation feature",
+            role: "Staff",
+          },
+        ],
+      },
+      {
+        title: "Analytics and Profit Insights",
+        description:
+          "Track revenue and profit visually to review performance and support better decisions.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_statis_calcul.webp",
+            alt: "Revenue analytics and profit calculator",
+          },
+        ],
+      },
+      {
+        title: "Export Orders to Excel",
+        description:
+          "Review historical orders and export them to Excel in one click for reporting workflows.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/excel.webp",
+            alt: "Historical order export to Excel",
+          },
+        ],
+      },
+    ],
+  },
+  fr: {
+    seoTitle: "Site restaurant + commande en ligne, réservation et POS",
+    seoDescription:
+      "OrderLinks aide les restaurants en Suisse à lancer un site multilingue avec commande, réservation, cuisine et analyses.",
+    nav: {
+      calculator: "Calculateur de prix",
+      demo: "Voir la démo",
+      language: "Langue",
+    },
+    hero: {
+      badge: "SaaS moderne pour restaurants suisses",
+      title: "Une expérience digitale haut de gamme orientée conversion",
+      subtitle:
+        "OrderLinks réunit site sur mesure, commande en ligne, réservation, coordination cuisine et analyses dans une seule plateforme performante.",
+      ctaPrimary: "Obtenir une estimation",
+      ctaSecondary: "Voir la demo produit",
+    },
+    section: {
+      featureTitle: "Fonctionnalités principales",
+      featureSubtitle:
+        "Chaque module cible un objectif business concret : acquisition, conversion, exécution et fidélisation.",
+      faqTitle: "Questions fréquentes",
+      faqSubtitle: "Réponses précises sur délais, tarification, multilingue et paiements.",
+    },
+    faq: [
+      {
+        q: "À quels restaurants s'adresse OrderLinks ?",
+        a: "La solution convient aux restaurants indépendants et aux chaînes qui veulent lancer rapidement site, commande et réservation.",
+      },
+      {
+        q: "Le système est-il multilingue ?",
+        a: "Oui, il prend en charge le français, l'allemand, l'anglais et le chinois.",
+      },
+      {
+        q: "Le paiement en ligne est-il pris en charge ?",
+        a: "Oui, Stripe peut être intégré pour fluidifier le parcours de commande et paiement.",
+      },
+      {
+        q: "Proposez-vous export et analyses ?",
+        a: "Oui, avec des graphiques d'activité et l'export des commandes en Excel.",
+      },
+    ],
+    features: [
+      {
+        title: "Traduction automatique DeepL",
+        description:
+          "Saisissez votre contenu une seule fois et synchronisez automatiquement les textes multilingues.",
+        medias: [
+          {
+            mediaType: "video",
+            src: "/auto_translation_by_deepl.mp4",
+            alt: "Démonstration de traduction automatique DeepL",
+          },
+        ],
+      },
+      {
+        title: "Gestion du menu administrateur",
+        description:
+          "Modifiez catégories, prix et disponibilités depuis une interface unique et flexible.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_menu.png",
+            alt: "Fonction de gestion du menu administrateur",
+          },
+        ],
+      },
+      {
+        title: "Commande et coordination cuisine",
+        description:
+          "Les clients commandent en ligne tandis que l'équipe cuisine traite les tickets dans un flux synchronisé.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_menu_with_detail.webp",
+            alt: "Commande client avec détails des plats",
+            role: "Client",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/KitchenOrderView.webp",
+            alt: "Vue cuisine pour traitement des commandes",
+            role: "Équipe",
+          },
+        ],
+      },
+      {
+        title: "Réservation et confirmation équipe",
+        description:
+          "Les clients réservent en ligne et le personnel confirme rapidement chaque réservation.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_reservation.webp",
+            alt: "Réservation en ligne côté client",
+            role: "Client",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/staff_reservation.webp",
+            alt: "Confirmation des réservations côté équipe",
+            role: "Équipe",
+          },
+        ],
+      },
+      {
+        title: "Analytique et rentabilité",
+        description:
+          "Visualisez revenus et profits pour piloter plus rapidement les décisions de gestion.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_statis_calcul.webp",
+            alt: "Statistiques de revenus et calcul de profit",
+          },
+        ],
+      },
+      {
+        title: "Export Excel des commandes",
+        description:
+          "Consultez l'historique des commandes puis exportez-le en Excel en un clic.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/excel.webp",
+            alt: "Export Excel des commandes historiques",
+          },
+        ],
+      },
+    ],
+  },
+  de: {
+    seoTitle: "Restaurant-Website + Online-Bestellung, Reservierung und POS",
+    seoDescription:
+      "OrderLinks hilft Restaurants in der Schweiz beim schnellen Start einer mehrsprachigen Website mit Bestellung, Reservierung und Analyse.",
+    nav: {
+      calculator: "Preisrechner",
+      demo: "Demo ansehen",
+      language: "Sprache",
+    },
+    hero: {
+      badge: "Moderne SaaS für Schweizer Restaurants",
+      title: "Premium-Digitalerlebnis mit klarer Conversion-Wirkung",
+      subtitle:
+        "OrderLinks vereint Website, Online-Bestellung, Reservierung, Küchenprozess und Analyse in einer integrierten Plattform für messbare Ergebnisse.",
+      ctaPrimary: "Preisabschätzung erhalten",
+      ctaSecondary: "Produktdemo ansehen",
+    },
+    section: {
+      featureTitle: "Kernfunktionen",
+      featureSubtitle:
+        "Jedes Modul zahlt auf konkrete Kennzahlen ein: Akquise, Conversion, Ausführung und Bindung.",
+      faqTitle: "Häufige Fragen",
+      faqSubtitle: "Klare Informationen zu Rollout, Preisstruktur, Mehrsprachigkeit und Zahlungsintegration.",
+    },
+    faq: [
+      {
+        q: "Für welche Restaurants ist OrderLinks geeignet?",
+        a: "Für einzelne Standorte und Ketten, die Website, Bestellung, Reservierung und Betriebsabläufe schnell einführen wollen.",
+      },
+      {
+        q: "Werden mehrere Sprachen unterstützt?",
+        a: "Ja, Französisch, Deutsch, Englisch und Chinesisch werden unterstützt.",
+      },
+      {
+        q: "Kann Online-Zahlung integriert werden?",
+        a: "Ja, Stripe kann in den Bestellprozess eingebunden werden.",
+      },
+      {
+        q: "Gibt es Export und Analyse?",
+        a: "Ja, inklusive Analyse-Dashboard und Excel-Export für historische Bestellungen.",
+      },
+    ],
+    features: [
+      {
+        title: "DeepL automatische Übersetzung",
+        description:
+          "Inhalte einmal erfassen und mehrsprachige Texte automatisch für Menüs und Seiten synchronisieren.",
+        medias: [
+          {
+            mediaType: "video",
+            src: "/auto_translation_by_deepl.mp4",
+            alt: "DeepL automatische Übersetzung Demo",
+          },
+        ],
+      },
+      {
+        title: "Admin-Menüsteuerung",
+        description:
+          "Kategorien, Preise und Verfügbarkeit zentral verwalten und schnell aktualisieren.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_menu.png",
+            alt: "Admin-Menüsteuerung Funktion",
+          },
+        ],
+      },
+      {
+        title: "Bestellung und Küchenkoordination",
+        description:
+          "Gäste bestellen online mit Detailansicht, während das Küchenteam Bestellungen effizient bearbeitet.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_menu_with_detail.webp",
+            alt: "Online-Bestellung mit Produktdetails",
+            role: "Gast",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/KitchenOrderView.webp",
+            alt: "Küchenansicht für Bestellbearbeitung",
+            role: "Team",
+          },
+        ],
+      },
+      {
+        title: "Reservierung und Team-Bestätigung",
+        description:
+          "Kunden reservieren online und das Team bestätigt Reservierungen in einem einheitlichen Ablauf.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/customer_reservation.webp",
+            alt: "Online-Reservierung für Kunden",
+            role: "Gast",
+            portrait: true,
+          },
+          {
+            mediaType: "image",
+            src: "/staff_reservation.webp",
+            alt: "Reservierungsbestätigung durch Mitarbeiter",
+            role: "Team",
+          },
+        ],
+      },
+      {
+        title: "Analyse und Profit-Einblick",
+        description:
+          "Umsatz und Profit visuell auswerten, um operative Entscheidungen schneller zu treffen.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/admin_statis_calcul.webp",
+            alt: "Umsatzanalyse und Profit-Rechner",
+          },
+        ],
+      },
+      {
+        title: "Excel-Export für Bestellungen",
+        description:
+          "Historische Bestellungen einsehen und per Klick als Excel für Reporting exportieren.",
+        medias: [
+          {
+            mediaType: "image",
+            src: "/excel.webp",
+            alt: "Excel-Export historischer Bestellungen",
+          },
+        ],
+      },
+    ],
+  },
+};
+
+const BASE_FEATURES = DICTIONARY.zh.features;
+const CONTACT_TEXT: Record<
+  Locale,
+  {
+    title: string;
+    subtitle: string;
+    hours: string;
+    email: string;
+    phone: string;
+    whatsapp: string;
+    wechat: string;
+  }
+> = {
+  zh: {
+    title: "联系我们",
+    subtitle: "欢迎提交您的餐厅经营信息，我们将提供兼顾品牌表达与商业目标的实施建议。",
+    hours: "电话接通时间：工作日 18:00-21:00，周末 10:00-22:00",
+    email: "邮件咨询",
+    phone: "电话咨询",
+    whatsapp: "WhatsApp",
+    wechat: "微信",
+  },
+  en: {
+    title: "Contact Us",
+    subtitle: "Share your business context and we will propose a launch plan balancing brand quality and revenue goals.",
+    hours: "Phone support hours: Weekdays 18:00-21:00, Weekends 10:00-22:00",
+    email: "Email",
+    phone: "Phone",
+    whatsapp: "WhatsApp",
+    wechat: "WeChat",
+  },
+  fr: {
+    title: "Contact",
+    subtitle: "Partagez votre contexte business et recevez un plan de lancement alliant image de marque et performance commerciale.",
+    hours: "Disponibilité téléphone : jours ouvrables 18:00-21:00, week-end 10:00-22:00",
+    email: "E-mail",
+    phone: "Telephone",
+    whatsapp: "WhatsApp",
+    wechat: "WeChat",
+  },
+  de: {
+    title: "Kontakt",
+    subtitle: "Teilen Sie Ihren Business-Kontext mit uns, wir liefern einen Launch-Plan mit Fokus auf Marke und Ergebnis.",
+    hours: "Telefonzeiten: Werktage 18:00-21:00, Wochenende 10:00-22:00",
+    email: "E-Mail",
+    phone: "Telefon",
+    whatsapp: "WhatsApp",
+    wechat: "WeChat",
+  },
+};
+
+function resolveLocale(raw?: string): Locale {
+  if (!raw) {
+    return "zh";
+  }
+  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : "zh";
+}
+
+function getDictionary(locale: Locale): Dictionary {
+  const dict = DICTIONARY[locale];
+  if (dict.features.length === 0) {
+    return { ...dict, features: BASE_FEATURES };
+  }
+  return dict;
+}
+
+type PageProps = {
+  searchParams: Promise<{ lang?: string }>;
+};
+
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const locale = resolveLocale(params.lang);
+  const dict = getDictionary(locale);
+  return {
+    title: dict.seoTitle,
+    description: dict.seoDescription,
+    alternates: {
+      canonical: LOCALE_PATHS[locale],
+      languages: {
+        ...LOCALE_PATHS,
+        "x-default": LOCALE_PATHS.en,
+      },
+    },
+    openGraph: {
+      type: "website",
+      url: `${SITE_URL}${LOCALE_PATHS[locale]}`,
+      title: `${dict.seoTitle} | ${SITE_NAME}`,
+      description: dict.seoDescription,
+      siteName: SITE_NAME,
+      images: [
+        {
+          url: "/logo.png",
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} product preview`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${dict.seoTitle} | ${SITE_NAME}`,
+      description: dict.seoDescription,
+      images: ["/logo.png"],
+    },
+  };
+}
+
+export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const locale = resolveLocale(params.lang);
+  const dict = getDictionary(locale);
+  const contact = CONTACT_TEXT[locale];
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "OrderLinks",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    inLanguage: ["fr", "de", "en", "zh"],
+    description: dict.seoDescription,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CHF",
+      availability: "https://schema.org/InStock",
+    },
+    audience: {
+      "@type": "Audience",
+      geographicArea: "Switzerland",
+    },
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: dict.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="page-shell relative min-h-screen text-neutral-900">
+      <ScrollRevealObserver />
+      <div
+        className="ambient-orb ambient-orb-a"
+        aria-hidden
+        data-parallax-speed="0.055"
+        data-mouse-factor="10"
+      />
+      <div
+        className="ambient-orb ambient-orb-b"
+        aria-hidden
+        data-parallax-speed="-0.04"
+        data-mouse-factor="-12"
+      />
+      <div
+        className="ambient-orb ambient-orb-c"
+        aria-hidden
+        data-parallax-speed="0.03"
+        data-mouse-factor="8"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <header className="sticky top-0 z-30 px-4 pt-4 sm:px-6 lg:px-10">
+        <div className="liquid-glass mx-auto flex w-full max-w-7xl flex-col gap-2 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
+          <Link href={`/?lang=${locale}`} className="flex items-center gap-2">
+            <Image src={withAssetVersion("/logo.png")} alt="OrderLinks logo" width={36} height={36} />
+            <span className="text-sm font-semibold tracking-wide">OrderLinks</span>
+          </Link>
+          <nav className="flex w-full items-center gap-2 text-sm sm:w-auto">
+            <Link
+              className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              href={`/pricing-calculator?lang=${locale}`}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              {dict.nav.calculator}
+            </Link>
+            <Link
+              className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              href="https://orderlinks.ch"
+              target="_blank"
+              rel="noreferrer"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              {dict.nav.demo}
+            </Link>
+            <details className="lang-switcher relative sm:hidden">
+              <summary className="nav-chip block cursor-pointer px-3 py-2 text-center text-xs">
+                {locale.toUpperCase()}
+              </summary>
+              <div className="absolute right-0 top-[calc(100%+0.4rem)] z-20 flex min-w-[132px] flex-col gap-1 rounded-xl border border-black/10 bg-white p-2 shadow-lg">
+                {SUPPORTED_LOCALES.map((lang) => (
+                  <Link
+                    key={`mobile-${lang}`}
+                    href={`/?lang=${lang}`}
+                    className={`lang-chip text-center ${lang === locale ? "lang-chip-active" : ""}`}
+                  >
+                    {lang.toUpperCase()}
+                  </Link>
+                ))}
+              </div>
+            </details>
+            <div className="hidden items-center gap-2 sm:flex">
+              <span className="hidden text-xs text-neutral-600 sm:inline">{dict.nav.language}</span>
+              {SUPPORTED_LOCALES.map((lang) => (
+                <Link
+                  key={lang}
+                  href={`/?lang=${lang}`}
+                  className={`lang-chip ${lang === locale ? "lang-chip-active" : ""}`}
+                >
+                  {lang.toUpperCase()}
+                </Link>
+              ))}
+            </div>
+          </nav>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </header>
+
+      <main className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-20 pt-10 sm:px-6 lg:px-10">
+        <section
+          className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"
+          data-reveal
+          data-reveal-direction="up"
+        >
+          <div className="space-y-6" data-reveal data-reveal-delay="40" data-reveal-direction="up">
+            <p className="inline-flex rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-medium tracking-wide text-neutral-700">
+              {dict.hero.badge}
+            </p>
+            <h1 className="display-title text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              {dict.hero.title}
+            </h1>
+            <p className="max-w-3xl text-base leading-relaxed text-neutral-700 sm:text-lg">
+              {dict.hero.subtitle}
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={`/pricing-calculator?lang=${locale}`}
+                className="cta-primary"
+              >
+                {dict.hero.ctaPrimary}
+              </Link>
+              <Link
+                href="https://orderlinks.ch"
+                target="_blank"
+                rel="noreferrer"
+                className="cta-secondary"
+              >
+                {dict.hero.ctaSecondary}
+              </Link>
+            </div>
+          </div>
+          <div
+            className="glass-section hover-lift relative overflow-hidden rounded-2xl p-5 sm:p-6"
+            data-reveal
+            data-reveal-delay="120"
+            data-reveal-direction="left"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-black/6 blur-2xl" />
+            <div className="absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-neutral-400/20 blur-2xl" />
+            <div className="absolute right-6 top-6 h-20 w-20 rounded-full border border-black/12" />
+            <div className="absolute right-10 top-10 h-12 w-12 rounded-full border border-black/10" />
+            <div className="absolute left-6 top-[46%] h-px w-[72%] bg-linear-to-r from-black/10 to-transparent" />
+            <div className="relative flex min-h-[260px] flex-col justify-between rounded-xl border border-black/10 bg-white/82 p-5">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute -inset-2 rounded-2xl bg-black/8 blur-md" />
+                  <Image
+                    src={withAssetVersion("/logo.png")}
+                    alt="OrderLinks logo"
+                    width={72}
+                    height={72}
+                    className="relative rounded-xl border border-black/10 bg-white p-1.5"
+                  />
+                </div>
+                <div>
+                  <p className="section-title text-lg font-semibold tracking-wide">OrderLinks</p>
+                  <p className="text-xs text-neutral-600">Restaurant Operating Platform</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-neutral-900" />
+                  <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-neutral-500">
+                    Swiss-ready, multilingual, conversion focused
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                    Website
+                  </div>
+                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                    Ordering
+                  </div>
+                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide">
+                    POS
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-3" data-reveal data-reveal-direction="up">
+          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.featureTitle}</h2>
+          <p className="max-w-3xl text-neutral-700">{dict.section.featureSubtitle}</p>
+          <div className="grid gap-5 pt-4 lg:grid-cols-2">
+            {dict.features.map((feature, index) => {
+              const hasDevicePairLayout =
+                feature.medias.length === 2 && feature.medias.some((item) => item.portrait) && feature.medias.some((item) => !item.portrait);
+
+              return (
+                <article
+                  key={feature.title}
+                  className="feature-card"
+                  data-reveal
+                  data-reveal-direction="up"
+                  data-reveal-delay={String((index % 6) * 60)}
+                >
+                  <div
+                    className={`grid gap-3 ${
+                      feature.medias.length > 1
+                        ? hasDevicePairLayout
+                          ? "sm:grid-cols-12"
+                          : "sm:grid-cols-2"
+                        : "grid-cols-1"
+                    }`}
+                  >
+                    {feature.medias.map((media, mediaIndex) => (
+                      <div
+                        key={`${feature.title}-${media.src}-${mediaIndex}`}
+                        className={`relative overflow-hidden rounded-xl border border-black/10 bg-[#f8f8f8] ${
+                          feature.medias.length > 1
+                            ? "flex h-[360px] items-center justify-center p-3 sm:h-[400px] lg:h-[430px]"
+                            : ""
+                        } ${hasDevicePairLayout ? (media.portrait ? "sm:col-span-5" : "sm:col-span-7") : ""}`}
+                      >
+                        {media.role ? (
+                          <span className="absolute left-2 top-2 z-10 rounded-full border border-black/10 bg-white/90 px-2 py-1 text-[11px] font-semibold text-neutral-700">
+                            {media.role}
+                          </span>
+                        ) : null}
+                        {media.mediaType === "video" ? (
+                          <video
+                            className="aspect-video w-full object-cover"
+                            src={withAssetVersion(media.src)}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                          />
+                        ) : (
+                          <Image
+                            className={
+                              feature.medias.length > 1
+                                ? media.portrait
+                                  ? "h-full w-auto object-contain"
+                                  : "h-full w-full object-contain"
+                                : "h-auto w-full"
+                            }
+                            src={withAssetVersion(media.src)}
+                            alt={media.alt}
+                            width={1800}
+                            height={1000}
+                            sizes={
+                              feature.medias.length > 1
+                                ? hasDevicePairLayout
+                                  ? "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 22vw"
+                                  : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 24vw"
+                                : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                            }
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 space-y-3">
+                    <h3 className="text-lg font-semibold leading-snug">
+                      {feature.title}
+                      {feature.soon ? (
+                        <span className="ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs font-medium text-white">
+                          Soon
+                        </span>
+                      ) : null}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-neutral-700">
+                      {feature.description}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section
+          className="glass-section space-y-3 rounded-2xl p-6 sm:p-8"
+          data-reveal
+          data-reveal-direction="up"
+        >
+          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.faqTitle}</h2>
+          <p className="text-neutral-700">{dict.section.faqSubtitle}</p>
+          <div className="grid gap-4 pt-2 md:grid-cols-2">
+            {dict.faq.map((item) => (
+              <article
+                key={item.q}
+                className="hover-lift rounded-xl border border-black/10 bg-[#fafafa] p-4"
+                data-reveal
+                data-reveal-delay="80"
+                data-reveal-direction="up"
+              >
+                <h3 className="text-base font-semibold">{item.q}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700">{item.a}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="glass-section space-y-3 rounded-2xl p-6 sm:p-8"
+          data-reveal
+          data-reveal-direction="up"
+        >
+          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{contact.title}</h2>
+          <p className="text-neutral-700">{contact.subtitle}</p>
+          <div className="space-y-2 pt-2 text-sm text-[#2d2d2d]">
+            <p>
+              <span className="mr-1">{contact.email}:</span>
+              <a className="underline underline-offset-4" href="mailto:order.links.26@gmail.com">
+                order.links.26@gmail.com
+              </a>
+            </p>
+            <p>
+              <span className="mr-1">{contact.phone}:</span>
+              <a className="underline underline-offset-4" href="tel:+41782495983">
+                +41 78 249 59 83
+              </a>
+            </p>
+            <p>
+              <span className="mr-1">{contact.whatsapp}:</span>
+              <a
+                className="underline underline-offset-4"
+                href="https://wa.me/41782495983"
+                target="_blank"
+                rel="noreferrer"
+              >
+                +41 78 249 59 83
+              </a>
+            </p>
+            <p>
+              <span className="mr-1">{contact.wechat}:</span>
+              <a className="underline underline-offset-4" href="weixin://dl/chat?wh30482275">
+                wh30482275
+              </a>
+            </p>
+          </div>
+          <p className="text-sm text-neutral-700">{contact.hours}</p>
+        </section>
       </main>
     </div>
   );
