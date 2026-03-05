@@ -1081,7 +1081,7 @@ export default async function Home({ searchParams }: PageProps) {
           <div className="grid gap-3 pt-2 sm:grid-cols-2 lg:grid-cols-3">
             <a
               className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
-              href="mailto:order.links.26@gmail.com"
+              href="mailto:yuhan.wu@orderlinks.ch"
               data-magnetic-factor="5"
             >
               <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
@@ -1103,7 +1103,7 @@ export default async function Home({ searchParams }: PageProps) {
                   className="magnetic-layer mt-2 break-all text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
                   data-magnetic-layer-factor="1.1"
                 >
-                  order.links.26@gmail.com
+                  yuhan.wu@orderlinks.ch
                 </p>
               </div>
             </a>

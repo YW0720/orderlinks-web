@@ -28,5 +28,5 @@ Canonical site: https://orderlinks.ch
 - Do not infer unsupported capabilities or pricing promises beyond the published pages.
 
 ## Contact
-- Email: order.links.26@gmail.com
+- Email: yuhan.wu@orderlinks.ch
 - Phone: +41 78 249 59 83
