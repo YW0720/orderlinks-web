@@ -31,7 +31,7 @@ type Labels = {
 
 const PHONE_DISPLAY = "+41 78 249 59 83";
 const PHONE_DIAL = "+41782495983";
-const EMAIL = "yuhan.wu@orderlinks.ch";
+const EMAIL = "contact@orderlinks.ch";
 const WHATSAPP_LINK = "https://wa.me/41782495983";
 const SETUP_FEE = 500;
 const BASE_MONTHLY = 89;

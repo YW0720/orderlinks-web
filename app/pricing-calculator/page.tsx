@@ -4,6 +4,8 @@ import Link from "next/link";
 import { PricingCalculatorClient } from "./PricingCalculatorClient";
 import ScrollRevealObserver from "../components/ScrollRevealObserver";
 import {
+  LOCALE_PATHS,
+  PRICING_SEO_KEYWORDS,
   PRICING_LOCALE_PATHS,
   SITE_NAME,
   SITE_URL,
@@ -50,9 +52,9 @@ type PageProps = {
 
 function resolveLocale(raw?: string): Locale {
   if (!raw) {
-    return "zh";
+    return "en";
   }
-  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : "zh";
+  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : "en";
 }
 
 export async function generateMetadata({
@@ -64,6 +66,7 @@ export async function generateMetadata({
   return {
     title: labels.title,
     description: labels.desc,
+    keywords: PRICING_SEO_KEYWORDS[locale],
     alternates: {
       canonical: PRICING_LOCALE_PATHS[locale],
       languages: {
@@ -99,10 +102,30 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
   const params = await searchParams;
   const locale = resolveLocale(params.lang);
   const labels = TEXT[locale];
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: labels.title,
+    description: labels.desc,
+    url: `${SITE_URL}${PRICING_LOCALE_PATHS[locale]}`,
+    inLanguage: locale,
+    keywords: PRICING_SEO_KEYWORDS[locale].join(", "),
+    about: [
+      "Restaurant website pricing",
+      "Online ordering pricing",
+      "POS pricing",
+      "Online reservation pricing",
+      "Swiss restaurant software",
+    ],
+  };
 
   return (
     <div className="page-shell min-h-screen px-4 pb-12 pt-4 sm:px-6 lg:px-10">
       <ScrollRevealObserver />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
       <div
         className="ambient-orb ambient-orb-a"
         aria-hidden
@@ -123,14 +146,14 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
       />
       <header className="mx-auto max-w-7xl">
         <div className="liquid-glass flex flex-col gap-2 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
-          <Link href={`/?lang=${locale}`} className="flex items-center gap-2">
+          <Link href={LOCALE_PATHS[locale]} className="flex items-center gap-2">
             <Image src="/logo.png" alt="OrderLinks logo" width={36} height={36} />
             <span className="text-sm font-semibold tracking-wide">OrderLinks</span>
           </Link>
           <div className="flex w-full items-center gap-2 text-sm sm:w-auto">
             <Link
               className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
-              href={`/?lang=${locale}`}
+              href={LOCALE_PATHS[locale]}
             >
               {labels.back}
             </Link>
@@ -150,7 +173,7 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
                 {SUPPORTED_LOCALES.map((lang) => (
                   <Link
                     key={`mobile-${lang}`}
-                    href={`/pricing-calculator?lang=${lang}`}
+                    href={PRICING_LOCALE_PATHS[lang]}
                     className={`lang-chip text-center ${lang === locale ? "lang-chip-active" : ""}`}
                   >
                     {lang.toUpperCase()}
@@ -163,7 +186,7 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
               {SUPPORTED_LOCALES.map((lang) => (
                 <Link
                   key={lang}
-                  href={`/pricing-calculator?lang=${lang}`}
+                  href={PRICING_LOCALE_PATHS[lang]}
                   className={`lang-chip ${lang === locale ? "lang-chip-active" : ""}`}
                 >
                   {lang.toUpperCase()}

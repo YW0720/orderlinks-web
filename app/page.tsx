@@ -2,7 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ScrollRevealObserver from "./components/ScrollRevealObserver";
-import { LOCALE_PATHS, SITE_NAME, SITE_URL, SUPPORTED_LOCALES, type SupportedLocale } from "./lib/seo";
+import {
+  HOME_SEO_KEYWORDS,
+  LOCALE_PATHS,
+  PRICING_LOCALE_PATHS,
+  SITE_NAME,
+  SITE_URL,
+  SUPPORTED_LOCALES,
+  type SupportedLocale,
+} from "./lib/seo";
 
 type Locale = SupportedLocale;
 const ASSET_VERSION = "20260303-1";
@@ -626,9 +634,9 @@ const CONTACT_TEXT: Record<
 
 function resolveLocale(raw?: string): Locale {
   if (!raw) {
-    return "zh";
+    return "en";
   }
-  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : "zh";
+  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : "en";
 }
 
 function getDictionary(locale: Locale): Dictionary {
@@ -652,6 +660,7 @@ export async function generateMetadata({
   return {
     title: dict.seoTitle,
     description: dict.seoDescription,
+    keywords: HOME_SEO_KEYWORDS[locale],
     alternates: {
       canonical: LOCALE_PATHS[locale],
       languages: {
@@ -688,6 +697,7 @@ export default async function Home({ searchParams }: PageProps) {
   const locale = resolveLocale(params.lang);
   const dict = getDictionary(locale);
   const contact = CONTACT_TEXT[locale];
+  const localeKeywords = HOME_SEO_KEYWORDS[locale];
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -697,6 +707,7 @@ export default async function Home({ searchParams }: PageProps) {
     operatingSystem: "Web",
     inLanguage: ["fr", "de", "en", "zh"],
     description: dict.seoDescription,
+    keywords: localeKeywords.join(", "),
     offers: {
       "@type": "Offer",
       priceCurrency: "CHF",
@@ -706,6 +717,27 @@ export default async function Home({ searchParams }: PageProps) {
       "@type": "Audience",
       geographicArea: "Switzerland",
     },
+    areaServed: {
+      "@type": "Country",
+      name: "Switzerland",
+    },
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: dict.seoTitle,
+    description: dict.seoDescription,
+    url: `${SITE_URL}${LOCALE_PATHS[locale]}`,
+    inLanguage: locale,
+    keywords: localeKeywords.join(", "),
+    about: [
+      "Restaurant website customization",
+      "Online ordering",
+      "POS integration",
+      "Online reservation",
+      "Swiss restaurant market",
+    ],
   };
 
   const faqSchema = {
@@ -750,17 +782,21 @@ export default async function Home({ searchParams }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
 
       <header className="sticky top-0 z-30 px-4 pt-4 sm:px-6 lg:px-10">
         <div className="liquid-glass mx-auto flex w-full max-w-7xl flex-col gap-2 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
-          <Link href={`/?lang=${locale}`} className="flex items-center gap-2">
+          <Link href={LOCALE_PATHS[locale]} className="flex items-center gap-2">
             <Image src={withAssetVersion("/logo.png")} alt="OrderLinks logo" width={36} height={36} />
             <span className="text-sm font-semibold tracking-wide">OrderLinks</span>
           </Link>
           <nav className="flex w-full items-center gap-2 text-sm sm:w-auto">
             <Link
               className="nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
-              href={`/pricing-calculator?lang=${locale}`}
+              href={PRICING_LOCALE_PATHS[locale]}
               data-magnetic-factor="4"
             >
               <span className="magnetic-layer inline-block" data-magnetic-layer-factor="1.5">
@@ -786,7 +822,7 @@ export default async function Home({ searchParams }: PageProps) {
                 {SUPPORTED_LOCALES.map((lang) => (
                   <Link
                     key={`mobile-${lang}`}
-                    href={`/?lang=${lang}`}
+                    href={LOCALE_PATHS[lang]}
                     className={`lang-chip text-center ${lang === locale ? "lang-chip-active" : ""}`}
                   >
                     {lang.toUpperCase()}
@@ -799,7 +835,7 @@ export default async function Home({ searchParams }: PageProps) {
               {SUPPORTED_LOCALES.map((lang) => (
                 <Link
                   key={lang}
-                  href={`/?lang=${lang}`}
+                  href={LOCALE_PATHS[lang]}
                   className={`lang-chip ${lang === locale ? "lang-chip-active" : ""}`}
                 >
                   {lang.toUpperCase()}
@@ -828,7 +864,7 @@ export default async function Home({ searchParams }: PageProps) {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Link
-                href={`/pricing-calculator?lang=${locale}`}
+                href={PRICING_LOCALE_PATHS[locale]}
                 className="group cta-primary magnetic magnetic-soft"
                 data-magnetic-factor="7"
               >
@@ -1081,7 +1117,7 @@ export default async function Home({ searchParams }: PageProps) {
           <div className="grid gap-3 pt-2 sm:grid-cols-2 lg:grid-cols-3">
             <a
               className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
-              href="mailto:yuhan.wu@orderlinks.ch"
+              href="mailto:contact@orderlinks.ch"
               data-magnetic-factor="5"
             >
               <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
@@ -1103,7 +1139,7 @@ export default async function Home({ searchParams }: PageProps) {
                   className="magnetic-layer mt-2 break-all text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
                   data-magnetic-layer-factor="1.1"
                 >
-                  yuhan.wu@orderlinks.ch
+                  contact@orderlinks.ch
                 </p>
               </div>
             </a>
