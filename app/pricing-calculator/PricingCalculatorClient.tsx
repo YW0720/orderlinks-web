@@ -9,12 +9,23 @@ type Labels = {
   desc: string;
   oneTimeTitle: string;
   oneTimeDesc: string;
+  oneTimeLanguageCoverage: string;
+  oneTimeLanguageNote: string;
   existingSite: string;
   yes: string;
   no: string;
+  existingSiteDiscountNote: string;
+  featuresForExistingSite: string;
+  existingSiteFeatureRequired: string;
   contract: string;
+  contract1Year: string;
+  contract3Years: string;
+  features: string;
+  reservationFeature: string;
+  posFeature: string;
+  qrOrderFeature: string;
+  takeawayOrderFeature: string;
   concurrentUsers: string;
-  dailyOrders: string;
   monthly: string;
   annual: string;
   note: string;
@@ -33,62 +44,74 @@ const PHONE_DISPLAY = "+41 78 249 59 83";
 const PHONE_DIAL = "+41782495983";
 const EMAIL = "contact@orderlinks.ch";
 const WHATSAPP_LINK = "https://wa.me/41782495983";
-const SETUP_FEE = 500;
-const BASE_MONTHLY = 89;
+const BASE_SETUP_FEE = 750;
+const FEATURE_SETUP_DISCOUNT = 50;
+const BASE_MONTHLY_3Y = 19;
+const BASE_MONTHLY_1Y_DELTA = 10;
+const RESERVATION_SURCHARGE_3Y = 20;
+const RESERVATION_SURCHARGE_1Y = 30;
+const POS_SURCHARGE_3Y = 30;
+const POS_SURCHARGE_1Y = 40;
+const POS_WITH_ORDER_SURCHARGE_3Y = 10;
+const POS_WITH_ORDER_SURCHARGE_1Y = 20;
 
-function resolveConcurrentTier(count: number) {
+type OrderMode = "none" | "single" | "both";
+
+function resolveSingleOrderTier(count: number) {
   if (count <= 50) {
-    return { custom: false, surcharge1: 6, surcharge3: 0 };
+    return { custom: false, surcharge1: 60, surcharge3: 50 };
   }
   if (count <= 100) {
-    return { custom: false, surcharge1: 26, surcharge3: 16 };
+    return { custom: false, surcharge1: 90, surcharge3: 70 };
   }
   if (count <= 150) {
-    return { custom: false, surcharge1: 70, surcharge3: 46 };
+    return { custom: false, surcharge1: 130, surcharge3: 100 };
   }
   if (count <= 200) {
-    return { custom: false, surcharge1: 146, surcharge3: 100 };
+    return { custom: false, surcharge1: 190, surcharge3: 150 };
   }
   return { custom: true, surcharge1: 0, surcharge3: 0 };
 }
 
-function resolveDailyOrderTier(count: number) {
+function resolveBothOrderTier(count: number) {
+  if (count <= 50) {
+    return { custom: false, surcharge1: 70, surcharge3: 60 };
+  }
   if (count <= 100) {
-    return { custom: false, surcharge: 0 };
+    return { custom: false, surcharge1: 100, surcharge3: 80 };
+  }
+  if (count <= 150) {
+    return { custom: false, surcharge1: 140, surcharge3: 110 };
   }
   if (count <= 200) {
-    return { custom: false, surcharge: 5 };
+    return { custom: false, surcharge1: 200, surcharge3: 160 };
   }
-  if (count <= 300) {
-    return { custom: false, surcharge: 10 };
-  }
-  if (count <= 400) {
-    return { custom: false, surcharge: 15 };
-  }
-  if (count <= 500) {
-    return { custom: false, surcharge: 20 };
-  }
-  if (count <= 600) {
-    return { custom: false, surcharge: 25 };
-  }
-  if (count <= 700) {
-    return { custom: false, surcharge: 30 };
-  }
-  return { custom: true, surcharge: 0 };
+  return { custom: true, surcharge1: 0, surcharge3: 0 };
 }
 
 const TEXT: Record<Locale, Labels> = {
   zh: {
-    title: "价格计算器",
-    desc: "根据客流与订单规模估算月费。",
+    title: "网站价格",
+    desc: "根据功能组合与订单并发规模估算费用。",
     oneTimeTitle: "一次性首页定制费用",
-    oneTimeDesc: "500 CHF。已包含维护费用，不包含域名费用。",
-    existingSite: "您是否已经拥有餐厅网站？（如果拥有可商议部分折扣）",
+    oneTimeDesc: "基础价格 750 CHF。每增加一项功能，网页定制费用减 50 CHF。",
+    oneTimeLanguageCoverage: "默认包含法语、德语、英语三语支持",
+    oneTimeLanguageNote: "；如需扩展更多语言版本，可根据内容范围与实施复杂度另行协商增补费用。",
+    existingSite: "餐厅是否已经拥有网站？",
     yes: "有",
     no: "没有",
+    existingSiteDiscountNote: "如已有网站，可商议直接接入；首页定制费用可优惠至 100 CHF 起（视接入难度而定）。",
+    featuresForExistingSite: "选择需要接入的功能",
+    existingSiteFeatureRequired: "已有网站时，至少需要选择一项接入功能。",
     contract: "合同年限",
+    contract1Year: "1 年合同",
+    contract3Years: "3 年合同",
+    features: "功能选择",
+    reservationFeature: "预约功能",
+    posFeature: "POS 功能",
+    qrOrderFeature: "扫码点餐",
+    takeawayOrderFeature: "外卖点餐",
     concurrentUsers: "最多同时在线点餐人数",
-    dailyOrders: "每日订单数量",
     monthly: "预估月费",
     annual: "预估年费",
     note: "一次性费用和月费均包含维护，不包含域名。",
@@ -101,19 +124,32 @@ const TEXT: Record<Locale, Labels> = {
     whatsapp: "WhatsApp",
     processTitle: "上线流程与支付说明",
     processDesc:
-      "请将以上选项信息与餐厅资料（名字、地址、电话号码、邮箱、域名、简短描述、餐厅图片及描述）发送给我们，我们会先与您确认实施方案与上线排期。方案确认后，支付 200 CHF 作为项目确认金；通常 5-10 天可完成上线。网站正式交付后，再支付剩余 300 CHF，月费从交付日期开始计算。",
+      "请将以上选项信息与餐厅资料（名字、地址、电话号码、邮箱、域名、简短描述、餐厅图片及描述）发送给我们，我们会先与您确认实施方案与上线排期。方案确认后，通常 5-10 天可完成上线。月费从交付日期开始计算。",
   },
   en: {
-    title: "Pricing Calculator",
-    desc: "Estimate monthly fee by traffic and daily order volume. Out-of-range tiers require direct discussion.",
+    title: "Website Pricing",
+    desc: "Estimate pricing based on feature bundle and order concurrency tiers.",
     oneTimeTitle: "One-time homepage customization fee",
-    oneTimeDesc: "500 CHF. Maintenance included. Domain cost excluded.",
-    existingSite: "Do you already have a restaurant website? (Partial discount may apply)",
+    oneTimeDesc: "Base price is 750 CHF. Website customization decreases by 50 CHF for each enabled feature.",
+    oneTimeLanguageCoverage: "Includes French, German, and English by default",
+    oneTimeLanguageNote:
+      ". If additional languages are required, supplementary pricing can be discussed based on content scope and implementation complexity.",
+    existingSite: "Do you already have a website?",
     yes: "Yes",
     no: "No",
+    existingSiteDiscountNote:
+      "If you already have a website, direct integration can be discussed; homepage customization may be discounted starting from 100 CHF depending on integration complexity.",
+    featuresForExistingSite: "Select features to integrate",
+    existingSiteFeatureRequired: "If a website already exists, at least one integration feature is required.",
     contract: "Contract term",
+    contract1Year: "1 year contract",
+    contract3Years: "3 years contract",
+    features: "Features",
+    reservationFeature: "Reservation feature",
+    posFeature: "POS feature",
+    qrOrderFeature: "QR ordering",
+    takeawayOrderFeature: "Takeaway ordering",
     concurrentUsers: "Max concurrent online ordering users",
-    dailyOrders: "Daily order count",
     monthly: "Estimated monthly fee",
     annual: "Estimated yearly fee",
     note: "One-time and monthly fees include maintenance; domain is excluded.",
@@ -123,22 +159,35 @@ const TEXT: Record<Locale, Labels> = {
     email: "Email",
     phone: "Phone",
     phoneHours: "Phone support hours: Weekdays 18:00-21:00, Weekends 10:00-22:00",
-    whatsapp: "WhatsApp (with selected options)",
+    whatsapp: "WhatsApp",
     processTitle: "Launch process and payment notes",
     processDesc:
-      "Please send us your selected options together with restaurant details (name, address, phone number, email, domain, short description, and restaurant images with captions). We will first confirm the implementation plan and launch schedule with you. Once the plan is confirmed, a 200 CHF project deposit can be arranged. Launch is usually completed within 5-10 days. After final delivery, the remaining 300 CHF is settled, and the monthly fee starts from the delivery date.",
+      "Please send us your selected options together with restaurant details (name, address, phone number, email, domain, short description, and restaurant images with captions). We will first confirm the implementation plan and launch schedule with you. Once the plan is confirmed, launch is usually completed within 5-10 days. The monthly fee starts from the delivery date.",
   },
   fr: {
-    title: "Calculateur de prix",
-    desc: "Estimation du prix mensuel selon le trafic et les commandes. Hors tranche : devis sur discussion.",
+    title: "Prix du site web",
+    desc: "Estimez le prix selon les fonctionnalités et les paliers de concurrence de commande.",
     oneTimeTitle: "Frais uniques de personnalisation de la page d’accueil",
-    oneTimeDesc: "500 CHF. Maintenance incluse. Domaine non inclus.",
-    existingSite: "Avez-vous déjà un site de restaurant ? (Remise partielle possible)",
+    oneTimeDesc: "Le prix de base est 750 CHF. Le coût de personnalisation web diminue de 50 CHF par fonctionnalité activée.",
+    oneTimeLanguageCoverage: "Inclut par defaut le francais, l'allemand et l'anglais",
+    oneTimeLanguageNote:
+      ". Si vous souhaitez ajouter d'autres langues, un tarif complementaire peut etre discute selon le volume de contenu et la complexite de mise en oeuvre.",
+    existingSite: "Avez-vous déjà un site web ?",
     yes: "Oui",
     no: "Non",
+    existingSiteDiscountNote:
+      "Si vous avez déjà un site web, une intégration directe peut être discutée ; la personnalisation de la page d'accueil peut être réduite à partir de 100 CHF selon la complexité d'intégration.",
+    featuresForExistingSite: "Sélectionnez les fonctionnalités à intégrer",
+    existingSiteFeatureRequired: "Si un site existe déjà, au moins une fonctionnalité d'intégration est requise.",
     contract: "Durée du contrat",
+    contract1Year: "Contrat 1 an",
+    contract3Years: "Contrat 3 ans",
+    features: "Fonctionnalités",
+    reservationFeature: "Fonction réservation",
+    posFeature: "Fonction POS",
+    qrOrderFeature: "Commande par QR",
+    takeawayOrderFeature: "Commande à emporter",
     concurrentUsers: "Nombre max d'utilisateurs de commande en ligne simultanés",
-    dailyOrders: "Nombre de commandes par jour",
     monthly: "Frais mensuels estimés",
     annual: "Frais annuels estimés",
     note: "Les frais uniques et mensuels incluent la maintenance; le domaine est exclu.",
@@ -148,22 +197,35 @@ const TEXT: Record<Locale, Labels> = {
     email: "E-mail",
     phone: "Téléphone",
     phoneHours: "Disponibilité : jours ouvrables 18:00-21:00, week-end 10:00-22:00",
-    whatsapp: "WhatsApp (avec options sélectionnées)",
+    whatsapp: "WhatsApp",
     processTitle: "Mise en ligne et modalités de paiement",
     processDesc:
-      "Merci de nous envoyer les options sélectionnées ainsi que les informations du restaurant (nom, adresse, téléphone, e-mail, domaine, courte description, images du restaurant et leurs descriptions). Nous confirmerons d'abord avec vous le plan de mise en oeuvre et le planning de mise en ligne. Une fois le plan validé, un acompte de confirmation de 200 CHF pourra etre regle. La mise en ligne est generalement finalisee sous 5-10 jours. Apres la livraison officielle du site, le solde de 300 CHF est regle, puis l'abonnement mensuel demarre a partir de la date de livraison.",
+      "Merci de nous envoyer les options sélectionnées ainsi que les informations du restaurant (nom, adresse, téléphone, e-mail, domaine, courte description, images du restaurant et leurs descriptions). Nous confirmerons d'abord avec vous le plan de mise en œuvre et le planning de mise en ligne. Une fois le plan validé, la mise en ligne est généralement finalisée sous 5-10 jours. L'abonnement mensuel démarre à partir de la date de livraison.",
   },
   de: {
-    title: "Preisrechner",
-    desc: "Monatspreis nach Traffic und Bestellvolumen schätzen. Außerhalb der Stufen: individuelle Absprache.",
+    title: "Website-Preis",
+    desc: "Preis auf Basis von Funktionspaket und Gleichzeitigkeit bei Bestellungen schätzen.",
     oneTimeTitle: "Einmalige Kosten für Startseiten-Anpassung",
-    oneTimeDesc: "500 CHF. Wartung enthalten. Domain nicht enthalten.",
-    existingSite: "Haben Sie bereits eine Restaurant-Website? (Teilrabatt möglich)",
+    oneTimeDesc: "Der Basispreis beträgt 750 CHF. Die Web-Anpassung sinkt pro aktivierter Funktion um 50 CHF.",
+    oneTimeLanguageCoverage: "Standardmassig sind Franzosisch, Deutsch und Englisch enthalten",
+    oneTimeLanguageNote:
+      ". Falls weitere Sprachen gewunscht sind, konnen Zusatzkosten je nach Inhaltsumfang und Umsetzungsaufwand abgestimmt werden.",
+    existingSite: "Haben Sie bereits eine Website?",
     yes: "Ja",
     no: "Nein",
+    existingSiteDiscountNote:
+      "Wenn Sie bereits eine Website haben, kann eine direkte Integration besprochen werden; die Startseiten-Anpassung kann je nach Integrationsaufwand ab 100 CHF reduziert werden.",
+    featuresForExistingSite: "Wählen Sie die zu integrierenden Funktionen",
+    existingSiteFeatureRequired: "Wenn bereits eine Website vorhanden ist, muss mindestens eine Integrationsfunktion gewählt werden.",
     contract: "Vertragslaufzeit",
+    contract1Year: "1-Jahres-Vertrag",
+    contract3Years: "3-Jahres-Vertrag",
+    features: "Funktionen",
+    reservationFeature: "Reservierungsfunktion",
+    posFeature: "POS-Funktion",
+    qrOrderFeature: "QR-Bestellung",
+    takeawayOrderFeature: "Mitnahmebestellung",
     concurrentUsers: "Maximal gleichzeitige Online-Besteller",
-    dailyOrders: "Tägliche Bestellungen",
     monthly: "Geschätzte Monatsgebühr",
     annual: "Geschätzte Jahresgebühr",
     note: "Einmalige und monatliche Kosten enthalten Wartung; Domain ist nicht enthalten.",
@@ -173,68 +235,119 @@ const TEXT: Record<Locale, Labels> = {
     email: "E-Mail",
     phone: "Telefon",
     phoneHours: "Telefonzeiten: Werktage 18:00-21:00, Wochenende 10:00-22:00",
-    whatsapp: "WhatsApp (mit ausgewählten Optionen)",
+    whatsapp: "WhatsApp",
     processTitle: "Go-live Ablauf und Zahlungsinfo",
     processDesc:
-      "Bitte senden Sie uns die ausgewaehlten Optionen zusammen mit den Restaurantdaten (Name, Adresse, Telefonnummer, E-Mail, Domain, kurze Beschreibung sowie Restaurantbilder mit Beschreibung). Wir stimmen zunaechst gemeinsam mit Ihnen den Umsetzungsplan und den Go-live Zeitplan ab. Nach Bestaetigung des Plans kann eine Projektanzahlung von 200 CHF geleistet werden. Der Go-live ist in der Regel innerhalb von 5-10 Tagen abgeschlossen. Nach der finalen Uebergabe werden die restlichen 300 CHF beglichen; die monatliche Gebuehr beginnt ab dem Lieferdatum.",
+      "Bitte senden Sie uns die ausgewählten Optionen zusammen mit den Restaurantdaten (Name, Adresse, Telefonnummer, E-Mail, Domain, kurze Beschreibung sowie Restaurantbilder mit Beschreibung). Wir stimmen zunächst gemeinsam mit Ihnen den Umsetzungsplan und den Go-live-Zeitplan ab. Nach Bestätigung des Plans, der Go-live ist in der Regel innerhalb von 5-10 Tagen abgeschlossen. Die monatliche Gebühr beginnt ab dem Lieferdatum.",
   },
 };
 
 export function PricingCalculatorClient({ locale }: { locale: Locale }) {
   const labels = TEXT[locale];
-  const [hasSite, setHasSite] = useState<"yes" | "no">("no");
+  const [hasSite, setHasSite] = useState<"yes" | "no">("yes");
   const [contractYears, setContractYears] = useState<1 | 3>(3);
+  const [hasReservation, setHasReservation] = useState(false);
+  const [hasPos, setHasPos] = useState(false);
+  const [hasQrOrder, setHasQrOrder] = useState(false);
+  const [hasTakeawayOrder, setHasTakeawayOrder] = useState(false);
   const [concurrentInput, setConcurrentInput] = useState("50");
-  const [dailyInput, setDailyInput] = useState("100");
 
   const result = useMemo(() => {
     const concurrentCount = Number.parseInt(concurrentInput, 10);
-    const dailyCount = Number.parseInt(dailyInput, 10);
+    const orderMode: OrderMode = hasQrOrder && hasTakeawayOrder ? "both" : hasQrOrder || hasTakeawayOrder ? "single" : "none";
 
-    if (
-      Number.isNaN(concurrentCount) ||
-      Number.isNaN(dailyCount) ||
-      concurrentCount <= 0 ||
-      dailyCount <= 0
-    ) {
+    const enabledFeatureCount = (hasReservation ? 1 : 0) + (hasPos ? 1 : 0) + (orderMode !== "none" ? 1 : 0);
+    const requiresIntegrationFeature = hasSite === "yes" && enabledFeatureCount === 0;
+    const setupFee = BASE_SETUP_FEE - enabledFeatureCount * FEATURE_SETUP_DISCOUNT;
+
+    if (requiresIntegrationFeature) {
       return {
         isCustom: true,
+        setupFee,
         monthly: null as number | null,
         annual: null as number | null,
         concurrentCount: 0,
-        dailyCount: 0,
       };
     }
 
-    const concurrent = resolveConcurrentTier(concurrentCount);
-    const daily = resolveDailyOrderTier(dailyCount);
+    const baseMonthly = contractYears === 1 ? BASE_MONTHLY_3Y + BASE_MONTHLY_1Y_DELTA : BASE_MONTHLY_3Y;
+    const reservationSurcharge = hasReservation
+      ? contractYears === 1
+        ? RESERVATION_SURCHARGE_1Y
+        : RESERVATION_SURCHARGE_3Y
+      : 0;
+    const posSurcharge = hasPos
+      ? orderMode === "none"
+        ? contractYears === 1
+          ? POS_SURCHARGE_1Y
+          : POS_SURCHARGE_3Y
+        : contractYears === 1
+          ? POS_WITH_ORDER_SURCHARGE_1Y
+          : POS_WITH_ORDER_SURCHARGE_3Y
+      : 0;
 
-    if (concurrent.custom || daily.custom) {
-      return {
-        isCustom: true,
-        monthly: null as number | null,
-        annual: null as number | null,
-        concurrentCount,
-        dailyCount,
-      };
+    let orderSurcharge = 0;
+    if (orderMode !== "none") {
+      if (Number.isNaN(concurrentCount) || concurrentCount <= 0) {
+        return {
+          isCustom: true,
+          setupFee,
+          monthly: null as number | null,
+          annual: null as number | null,
+          concurrentCount: 0,
+        };
+      }
+
+      const concurrent =
+        orderMode === "both" ? resolveBothOrderTier(concurrentCount) : resolveSingleOrderTier(concurrentCount);
+      if (concurrent.custom) {
+        return {
+          isCustom: true,
+          setupFee,
+          monthly: null as number | null,
+          annual: null as number | null,
+          concurrentCount,
+        };
+      }
+      orderSurcharge = contractYears === 1 ? concurrent.surcharge1 : concurrent.surcharge3;
     }
-    const concurrentSurcharge = contractYears === 1 ? concurrent.surcharge1 : concurrent.surcharge3;
-    const monthly = BASE_MONTHLY + concurrentSurcharge + daily.surcharge;
+
+    const monthly = baseMonthly + reservationSurcharge + posSurcharge + orderSurcharge;
     return {
       isCustom: false,
+      setupFee,
       monthly,
       annual: monthly * 12,
-      concurrentCount,
-      dailyCount,
+      concurrentCount: orderMode !== "none" ? concurrentCount : 0,
     };
-  }, [concurrentInput, contractYears, dailyInput]);
+  }, [concurrentInput, contractYears, hasPos, hasReservation, hasQrOrder, hasTakeawayOrder, hasSite]);
+
+  const orderMode: OrderMode = hasQrOrder && hasTakeawayOrder ? "both" : hasQrOrder || hasTakeawayOrder ? "single" : "none";
+
+  const selectedFeatures = [
+    hasReservation ? labels.reservationFeature : null,
+    hasPos ? labels.posFeature : null,
+    hasQrOrder ? labels.qrOrderFeature : null,
+    hasTakeawayOrder ? labels.takeawayOrderFeature : null,
+  ].filter(Boolean);
+  const selectedFeaturesText =
+    selectedFeatures.length > 0
+      ? `Selected features: ${selectedFeatures.join(" / ")}`
+      : hasSite === "yes"
+        ? labels.existingSiteFeatureRequired
+        : locale === "zh"
+          ? "当前为静态网页基础方案。"
+          : "Current selection: static webpage baseline.";
+  const isMissingRequiredFeature = hasSite === "yes" && selectedFeatures.length === 0;
+  const customResultText = isMissingRequiredFeature ? labels.existingSiteFeatureRequired : labels.custom;
+  const annualDisplayText = isMissingRequiredFeature ? "" : result.isCustom ? labels.custom : `${labels.annual}: ${result.annual} CHF`;
 
   const summaryLines = [
     `Language: ${locale.toUpperCase()}`,
-    `Has existing website: ${hasSite === "yes" ? "Yes" : "No"}`,
+    `Has website: ${hasSite === "yes" ? "Yes" : "No"}`,
     `Contract years: ${contractYears}`,
-    `Concurrent users: ${result.concurrentCount || "-"}`,
-    `Daily orders: ${result.dailyCount || "-"}`,
+    `Features: ${selectedFeatures.length > 0 ? selectedFeatures.join(", ") : "None (static page)"}`,
+    `Concurrent users: ${orderMode !== "none" ? result.concurrentCount || "-" : "N/A"}`,
   ];
 
   const emailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("OrderLinks Inquiry")}&body=${encodeURIComponent(summaryLines.join("\n"))}`;
@@ -248,6 +361,45 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
           <p className="mt-3 text-[#2d2d2d]">{labels.desc}</p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="flex flex-col">
+              <label className="mb-3 block text-sm font-medium text-[#1f1f1f]">
+                {hasSite === "yes" ? labels.featuresForExistingSite : labels.features}
+              </label>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className={`calc-chip ${hasReservation ? "calc-chip-active" : ""}`}
+                  onClick={() => setHasReservation((prev) => !prev)}
+                >
+                  + {labels.reservationFeature}
+                </button>
+                <button
+                  type="button"
+                  className={`calc-chip ${hasPos ? "calc-chip-active" : ""}`}
+                  onClick={() => setHasPos((prev) => !prev)}
+                >
+                  + {labels.posFeature}
+                </button>
+                <button
+                  type="button"
+                  className={`calc-chip ${hasQrOrder ? "calc-chip-active" : ""}`}
+                  onClick={() => setHasQrOrder((prev) => !prev)}
+                >
+                  + {labels.qrOrderFeature}
+                </button>
+                <button
+                  type="button"
+                  className={`calc-chip ${hasTakeawayOrder ? "calc-chip-active" : ""}`}
+                  onClick={() => setHasTakeawayOrder((prev) => !prev)}
+                >
+                  + {labels.takeawayOrderFeature}
+                </button>
+              </div>
+              {hasSite === "yes" && selectedFeatures.length === 0 ? (
+                <p className="mt-2 text-sm font-medium text-[#b42318]">{labels.existingSiteFeatureRequired}</p>
+              ) : null}
+            </div>
+
             <div className="flex flex-col">
               <label className="mb-3 block text-sm font-medium text-[#1f1f1f]">{labels.existingSite}</label>
               <div className="flex gap-2">
@@ -278,63 +430,59 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
                 value={contractYears}
                 onChange={(event) => setContractYears(Number(event.target.value) as 1 | 3)}
               >
-                <option value={1}>1 year</option>
-                <option value={3}>3 years</option>
+                <option value={1}>{labels.contract1Year}</option>
+                <option value={3}>{labels.contract3Years}</option>
               </select>
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="concurrent" className="mb-3 block text-sm font-medium text-[#1f1f1f]">
-                {labels.concurrentUsers}
-              </label>
-              <input
-                id="concurrent"
-                className="calc-select"
-                type="number"
-                inputMode="numeric"
-                min={1}
-                step={1}
-                value={concurrentInput}
-                onChange={(event) => setConcurrentInput(event.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="daily" className="mb-3 block text-sm font-medium text-[#1f1f1f]">
-                {labels.dailyOrders}
-              </label>
-              <input
-                id="daily"
-                className="calc-select"
-                type="number"
-                inputMode="numeric"
-                min={1}
-                step={1}
-                value={dailyInput}
-                onChange={(event) => setDailyInput(event.target.value)}
-              />
-            </div>
+            {orderMode !== "none" ? (
+              <div className="flex flex-col">
+                <label htmlFor="concurrent" className="mb-3 block text-sm font-medium text-[#1f1f1f]">
+                  {labels.concurrentUsers}
+                </label>
+                <input
+                  id="concurrent"
+                  className="calc-select"
+                  type="number"
+                  inputMode="numeric"
+                  min={1}
+                  step={1}
+                  value={concurrentInput}
+                  onChange={(event) => setConcurrentInput(event.target.value)}
+                />
+              </div>
+            ) : null}
           </div>
         </article>
 
         <aside className="feature-card rounded-2xl border border-black/10 bg-white p-5 shadow-sm">
-          <p className="text-sm font-medium text-[#3d3d3d]">{labels.oneTimeTitle}</p>
-          <p className="mt-2 text-3xl font-semibold">{SETUP_FEE} CHF</p>
-          <p className="mt-2 text-sm text-[#2d2d2d]">{labels.oneTimeDesc}</p>
+          {hasSite === "yes" ? (
+            <p className="text-base font-bold text-[#171717] sm:text-lg">{labels.existingSiteDiscountNote}</p>
+          ) : (
+            <>
+              <p className="text-sm font-medium text-[#3d3d3d]">{labels.oneTimeTitle}</p>
+              <p className="mt-2 text-3xl font-semibold">{result.setupFee} CHF</p>
+              <p className="mt-2 text-sm text-[#2d2d2d]">{labels.oneTimeDesc}</p>
+              <p className="mt-2 text-sm text-[#3f3f46]">
+                <strong>{labels.oneTimeLanguageCoverage}</strong>
+                {labels.oneTimeLanguageNote}
+              </p>
+            </>
+          )}
 
           <div className="mt-5 space-y-2 rounded-xl border border-black/10 bg-[#fafafa] p-4">
             <p className="text-sm font-medium text-[#3d3d3d]">{labels.monthly}</p>
             <p className="text-3xl font-semibold">
-              {result.isCustom ? labels.custom : `${result.monthly} CHF`}
+              {result.isCustom ? customResultText : `${result.monthly} CHF`}
             </p>
             <p className="text-sm text-[#4a4a4a]">
-              {result.isCustom ? labels.custom : `${labels.annual}: ${result.annual} CHF`}
+              {annualDisplayText}
             </p>
           </div>
 
-          {hasSite === "yes" ? (
-            <p className="mt-2 text-xs text-[#2d2d2d]">已有网站可沟通直接接入折扣。</p>
-          ) : null}
+          <p className="mt-2 text-xs text-[#2d2d2d]">
+            {selectedFeaturesText}
+          </p>
         </aside>
       </section>
 

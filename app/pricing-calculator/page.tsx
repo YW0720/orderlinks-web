@@ -120,7 +120,7 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
   };
 
   return (
-    <div className="page-shell min-h-screen px-4 pb-12 pt-4 sm:px-6 lg:px-10">
+    <div className="page-shell min-h-svh px-4 pb-12 pt-4 sm:px-6 lg:px-10">
       <ScrollRevealObserver />
       <script
         type="application/ld+json"
@@ -159,7 +159,7 @@ export default async function PricingCalculatorPage({ searchParams }: PageProps)
             </Link>
             <Link
               className="nav-chip block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
-              href="https://orderlinks.ch"
+              href="https://orderlinksdemo.ch"
               target="_blank"
               rel="noreferrer"
             >

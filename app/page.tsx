@@ -44,15 +44,23 @@ type Dictionary = {
     badge: string;
     title: string;
     subtitle: string;
+    pricingCardTitle: string;
+    pricingHighlight: string;
     ctaPrimary: string;
     ctaSecondary: string;
   };
   section: {
+    customWebsiteTitle: string;
+    customWebsiteSubtitle: string;
     featureTitle: string;
     featureSubtitle: string;
     faqTitle: string;
     faqSubtitle: string;
   };
+  customWebsiteItems: Array<{
+    title: string;
+    benefit: string;
+  }>;
   faq: Array<{ q: string; a: string }>;
   features: Feature[];
 };
@@ -72,24 +80,52 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       title: "以品牌级体验，交付可持续增长的餐厅官网与点餐系统",
       subtitle:
         "OrderLinks 将网站定制、在线点餐、预约、后厨协作与经营分析整合为统一方案。在保持品牌质感的同时，确保每个环节都能直接服务订单转化与运营效率。",
+      pricingCardTitle: "网站价格",
+      pricingHighlight:
+        "标准定制网页服务 750 CHF 起；如同时开通预约、在线点餐等附加功能，可享组合优惠。若您已拥有餐厅官网，也可在现有网站基础上接入相关功能，从而节省大量定制费用。系统维护、更新与基础支持费用 19 CHF/月起。欢迎前往价格计算器页面查看详细报价。",
       ctaPrimary: "获取专属价格测算",
       ctaSecondary: "查看产品 Demo",
     },
     section: {
+      customWebsiteTitle: "定制网页将为餐厅带来的核心能力",
+      customWebsiteSubtitle:
+        "在品牌表达、使用体验与增长效率之间建立平衡，让官网不仅“可展示”，更能持续支持获客与转化。",
       featureTitle: "核心功能",
       featureSubtitle:
         "从获客到复购，每个模块都围绕真实经营指标设计，帮助餐厅建立可量化、可复用的增长机制。",
       faqTitle: "常见问题",
       faqSubtitle: "关于上线周期、费用结构、多语能力与支付集成，这里给出明确答案。",
     },
+    customWebsiteItems: [
+      {
+        title: "高质量视觉呈现与交互动效",
+        benefit:
+          "通过一致的视觉规范与适度动画反馈，强化品牌专业感，提升首次访问的信任度与停留时长。",
+      },
+      {
+        title: "面向不同设备尺寸的界面优化",
+        benefit:
+          "针对手机、平板与桌面端进行自适配与可读性优化，降低浏览与下单阻力，减少因界面不适配导致的流失。",
+      },
+      {
+        title: "深度 SEO 与 AI 搜索可见性优化",
+        benefit:
+          "从页面结构、语义信息到检索友好内容进行系统优化，帮助餐厅在传统搜索与 AI 问答场景中获得更稳定的曝光。",
+      },
+      {
+        title: "法语、德语、英语多语言支持",
+        benefit:
+          "默认覆盖瑞士核心客群语言，并可按业务需要付费扩展更多语种，提升跨区域触达效率与沟通一致性。",
+      },
+    ],
     faq: [
       {
         q: "OrderLinks 适合哪些餐厅？",
         a: "适合希望快速上线官网、在线点餐、预约与后厨工作流的中小型到连锁餐厅，尤其适合瑞士多语市场。",
       },
       {
-        q: "是否支持多语言切换？",
-        a: "支持法语、德语、英语和中文，便于面向不同地区顾客提供一致的浏览和下单体验。",
+        q: "网站需要多少天才能上线?",
+        a: "在餐厅资料与素材齐备的情况下，标准项目通常可在 5-10 天内完成上线；如涉及较多定制功能，周期将根据范围做相应评估。",
       },
       {
         q: "支付能力是否集成？",
@@ -97,7 +133,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       },
       {
         q: "系统是否支持数据导出和经营分析？",
-        a: "支持图表化经营数据与历史订单导出 Excel，帮助餐厅进行日常复盘和决策。",
+        a: "是的，当您选择 POS 或在线点餐相关功能后，系统可提供图表化经营数据与历史订单 Excel 导出，便于餐厅进行日常复盘与经营决策。",
       },
     ],
     features: [
@@ -199,24 +235,52 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       title: "Deliver a brand-grade digital experience that converts",
       subtitle:
         "OrderLinks unifies custom website design, online ordering, reservation flow, kitchen coordination, and analytics. The result is a refined customer journey with measurable commercial impact.",
+      pricingCardTitle: "Website Pricing",
+      pricingHighlight:
+        "Standard custom website delivery starts at CHF 750. Preferential bundled pricing applies when add-ons such as reservations and online ordering are enabled. If your restaurant already has an existing website, the same features can be integrated into your current site, helping you save substantial customization costs. Fees for maintenance, updates, and basic support start at CHF 19/month. You are welcome to visit the pricing calculator page for a detailed quotation.",
       ctaPrimary: "Get Pricing Estimate",
       ctaSecondary: "View Product Demo",
     },
     section: {
+      customWebsiteTitle: "What a custom website delivers for your restaurant",
+      customWebsiteSubtitle:
+        "A balanced foundation across brand expression, user experience, and growth performance.",
       featureTitle: "Core Product Capabilities",
       featureSubtitle:
         "Every module is mapped to real business outcomes: acquisition, conversion, delivery quality, and retention.",
       faqTitle: "Frequently Asked Questions",
       faqSubtitle: "Clear answers on launch timeline, pricing model, multilingual setup, and payment integration.",
     },
+    customWebsiteItems: [
+      {
+        title: "High-quality visual presentation and interaction effects",
+        benefit:
+          "Consistent design language and restrained motion cues strengthen brand credibility and improve visitor engagement.",
+      },
+      {
+        title: "Interface optimization across device sizes",
+        benefit:
+          "Responsive tuning for mobile, tablet, and desktop reduces friction during browsing and ordering, helping limit drop-offs.",
+      },
+      {
+        title: "Advanced SEO and AI search visibility optimization",
+        benefit:
+          "Semantic structure and search-friendly content improve discoverability in both traditional search engines and AI-assisted search journeys.",
+      },
+      {
+        title: "French, German, and English multilingual support",
+        benefit:
+          "Core Swiss market languages are supported by default, with optional paid expansion to additional languages as needed.",
+      },
+    ],
     faq: [
       {
         q: "Who is OrderLinks built for?",
         a: "It is designed for independent and multi-location restaurants that need a fast launch for website, ordering, reservation, and operations.",
       },
       {
-        q: "Does it support multiple languages?",
-        a: "Yes. The product supports French, German, English, and Chinese for the Swiss market.",
+        q: "How many days does a website launch usually take?",
+        a: "When core materials are ready, a standard website project is typically delivered within 5-10 days. If broader custom requirements are included, the timeline is adjusted based on scope.",
       },
       {
         q: "Can online payment be integrated?",
@@ -224,7 +288,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       },
       {
         q: "Do you support data export and analytics?",
-        a: "Yes. You can view analytics dashboards and export historical orders as Excel files.",
+        a: "Yes. When POS or online ordering features are enabled, the system provides analytics dashboards and historical order export in Excel to support daily operational reviews and decision-making.",
       },
     ],
     features: [
@@ -328,28 +392,56 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       language: "Langue",
     },
     hero: {
-      badge: "SaaS moderne pour restaurants suisses",
+      badge: "Platform moderne pour restaurants suisses",
       title: "Une expérience digitale haut de gamme orientée conversion",
       subtitle:
         "OrderLinks réunit site sur mesure, commande en ligne, réservation, coordination cuisine et analyses dans une seule plateforme performante.",
+      pricingCardTitle: "Prix du site web",
+      pricingHighlight:
+        "Le service standard de site web sur mesure commence à CHF 750, avec un tarif groupé avantageux en cas d'activation de modules comme la réservation et la commande en ligne. Si votre restaurant dispose déjà d'un site, ces fonctionnalités peuvent être intégrées à l'existant afin de réduire les coûts de personnalisation. La maintenance, les mises à jour et le support de base commencent à CHF 19/mois. Consultez le calculateur de prix pour un devis détaillé.",
       ctaPrimary: "Obtenir une estimation",
-      ctaSecondary: "Voir la demo produit",
+      ctaSecondary: "Voir la démo produit",
     },
     section: {
+      customWebsiteTitle: "Ce qu'un site sur mesure apporte à votre restaurant",
+      customWebsiteSubtitle:
+        "Une base équilibrée entre image de marque, expérience utilisateur et performance commerciale.",
       featureTitle: "Fonctionnalités principales",
       featureSubtitle:
         "Chaque module cible un objectif business concret : acquisition, conversion, exécution et fidélisation.",
       faqTitle: "Questions fréquentes",
       faqSubtitle: "Réponses précises sur délais, tarification, multilingue et paiements.",
     },
+    customWebsiteItems: [
+      {
+        title: "Presentation visuelle de haute qualite et effets d'interaction",
+        benefit:
+          "Une identité visuelle cohérente et des animations discrètes renforcent la crédibilité de la marque et la qualité de perception.",
+      },
+      {
+        title: "Optimisation de l'interface pour tous les écrans",
+        benefit:
+          "L'adaptation mobile, tablette et desktop facilite la navigation et la commande, tout en réduisant les abandons liés à l'ergonomie.",
+      },
+      {
+        title: "SEO approfondi et visibilité dans la recherche IA",
+        benefit:
+          "La structure sémantique et le contenu optimisé améliorent la présence sur les moteurs classiques et les expériences de recherche assistées par IA.",
+      },
+      {
+        title: "Support multilingue français, allemand et anglais",
+        benefit:
+          "Les langues principales du marché suisse sont couvertes, avec extension payante vers d'autres langues selon les besoins.",
+      },
+    ],
     faq: [
       {
         q: "À quels restaurants s'adresse OrderLinks ?",
         a: "La solution convient aux restaurants indépendants et aux chaînes qui veulent lancer rapidement site, commande et réservation.",
       },
       {
-        q: "Le système est-il multilingue ?",
-        a: "Oui, il prend en charge le français, l'allemand, l'anglais et le chinois.",
+        q: "En combien de jours le site peut-il être mis en ligne ?",
+        a: "Lorsque les contenus et ressources principaux sont prêts, un projet standard est généralement mis en ligne sous 5-10 jours. En cas de personnalisation étendue, le délai est ajusté selon le périmètre.",
       },
       {
         q: "Le paiement en ligne est-il pris en charge ?",
@@ -357,7 +449,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       },
       {
         q: "Proposez-vous export et analyses ?",
-        a: "Oui, avec des graphiques d'activité et l'export des commandes en Excel.",
+        a: "Oui. Lorsque les fonctionnalités POS ou commande en ligne sont activées, le système propose des tableaux d'analyse ainsi que l'export des commandes historiques en Excel pour faciliter le suivi quotidien et la prise de décision.",
       },
     ],
     features: [
@@ -461,28 +553,56 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       language: "Sprache",
     },
     hero: {
-      badge: "Moderne SaaS für Schweizer Restaurants",
+      badge: "Moderne Platform für Schweizer Restaurants",
       title: "Premium-Digitalerlebnis mit klarer Conversion-Wirkung",
       subtitle:
         "OrderLinks vereint Website, Online-Bestellung, Reservierung, Küchenprozess und Analyse in einer integrierten Plattform für messbare Ergebnisse.",
+      pricingCardTitle: "Website-Preis",
+      pricingHighlight:
+        "Der Standardservice für eine individuell angepasste Website beginnt bei CHF 750. Bei Aktivierung von Zusatzfunktionen wie Reservierung und Online-Bestellung gelten gebündelte Preisvorteile. Falls Ihr Restaurant bereits eine Website hat, können dieselben Funktionen in die bestehende Seite integriert werden, um Anpassungskosten deutlich zu reduzieren. Wartung, Updates und Basis-Support beginnen bei CHF 19/Monat. Für ein detailliertes Angebot besuchen Sie bitte den Preisrechner.",
       ctaPrimary: "Preisabschätzung erhalten",
       ctaSecondary: "Produktdemo ansehen",
     },
     section: {
+      customWebsiteTitle: "Was eine individuelle Website für Ihr Restaurant leistet",
+      customWebsiteSubtitle:
+        "Eine ausgewogene Grundlage für Markenauftritt, Nutzererlebnis und nachhaltige Wachstumswirkung.",
       featureTitle: "Kernfunktionen",
       featureSubtitle:
         "Jedes Modul zahlt auf konkrete Kennzahlen ein: Akquise, Conversion, Ausführung und Bindung.",
       faqTitle: "Häufige Fragen",
       faqSubtitle: "Klare Informationen zu Rollout, Preisstruktur, Mehrsprachigkeit und Zahlungsintegration.",
     },
+    customWebsiteItems: [
+      {
+        title: "Hochwertige visuelle Darstellung und Interaktionseffekte",
+        benefit:
+          "Ein konsistenter visueller Auftritt und gezielte Animationen stärken die Markenwirkung und verbessern die Verweildauer.",
+      },
+      {
+        title: "Optimierte Oberfläche für verschiedene Gerätegrößen",
+        benefit:
+          "Anpassungen für Smartphone, Tablet und Desktop reduzieren Bedienhürden und unterstützen eine reibungsarme Conversion.",
+      },
+      {
+        title: "Vertiefte SEO- und AI-Search-Optimierung",
+        benefit:
+          "Semantische Seitenstruktur und suchfreundliche Inhalte erhöhen die Sichtbarkeit in klassischen Suchmaschinen und KI-gestützten Suchergebnissen.",
+      },
+      {
+        title: "Mehrsprachigkeit in Französisch, Deutsch und Englisch",
+        benefit:
+          "Die zentralen Sprachen des Schweizer Marktes sind abgedeckt; weitere Sprachen können bei Bedarf kostenpflichtig erweitert werden.",
+      },
+    ],
     faq: [
       {
         q: "Für welche Restaurants ist OrderLinks geeignet?",
         a: "Für einzelne Standorte und Ketten, die Website, Bestellung, Reservierung und Betriebsabläufe schnell einführen wollen.",
       },
       {
-        q: "Werden mehrere Sprachen unterstützt?",
-        a: "Ja, Französisch, Deutsch, Englisch und Chinesisch werden unterstützt.",
+        q: "In wie vielen Tagen kann die Website live gehen?",
+        a: "Wenn alle zentralen Inhalte und Materialien vorliegen, kann ein Standardprojekt in der Regel innerhalb von 5-10 Tagen live gehen. Bei erweitertem Funktionsumfang wird der Zeitplan entsprechend des Umfangs angepasst.",
       },
       {
         q: "Kann Online-Zahlung integriert werden?",
@@ -490,7 +610,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       },
       {
         q: "Gibt es Export und Analyse?",
-        a: "Ja, inklusive Analyse-Dashboard und Excel-Export für historische Bestellungen.",
+        a: "Ja. Wenn POS- oder Online-Bestellfunktionen aktiviert sind, stellt das System Analyse-Dashboards sowie den Excel-Export historischer Bestellungen bereit, um die tägliche Auswertung und fundierte Entscheidungen zu unterstützen.",
       },
     ],
     features: [
@@ -619,7 +739,7 @@ const CONTACT_TEXT: Record<
     subtitle: "Partagez votre contexte business et recevez un plan de lancement alliant image de marque et performance commerciale.",
     hours: "Disponibilité téléphone : jours ouvrables 18:00-21:00, week-end 10:00-22:00",
     email: "E-mail",
-    phone: "Telephone",
+    phone: "Téléphone",
     whatsapp: "WhatsApp",
   },
   de: {
@@ -754,7 +874,7 @@ export default async function Home({ searchParams }: PageProps) {
   };
 
   return (
-    <div className="page-shell relative min-h-screen text-neutral-900">
+    <div className="page-shell relative min-h-svh text-neutral-900">
       <ScrollRevealObserver />
       <div
         className="ambient-orb ambient-orb-a"
@@ -876,7 +996,7 @@ export default async function Home({ searchParams }: PageProps) {
                 </span>
               </Link>
               <Link
-                href="https://orderlinks.ch"
+                href="https://orderlinksdemo.ch"
                 target="_blank"
                 rel="noreferrer"
                 className="group cta-secondary magnetic magnetic-soft"
@@ -892,75 +1012,72 @@ export default async function Home({ searchParams }: PageProps) {
             </div>
           </div>
           <div
-            className="glass-section hover-lift magnetic magnetic-soft kinetic-shell relative rounded-2xl p-5 sm:p-6"
+            className="glass-section hover-lift magnetic magnetic-soft kinetic-shell relative overflow-hidden rounded-2xl border border-black/10 bg-linear-to-br from-white/90 via-white/78 to-neutral-100/65 p-4 shadow-[0_14px_30px_rgba(20,20,20,0.08)] sm:p-5"
             data-reveal
             data-reveal-delay="120"
             data-reveal-direction="left"
             data-magnetic-factor="6"
           >
             <div
-              className="magnetic-layer depth-layer-far absolute -right-10 -top-10 h-44 w-44 rounded-full bg-black/6 blur-2xl"
+              className="magnetic-layer depth-layer-far absolute -right-10 -top-12 h-48 w-48 rounded-full bg-linear-to-br from-neutral-300/35 to-transparent blur-2xl"
               data-magnetic-layer-factor="0.8"
             />
             <div
-              className="magnetic-layer depth-layer-far absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-neutral-400/20 blur-2xl"
+              className="magnetic-layer depth-layer-far absolute -bottom-16 -left-14 h-52 w-52 rounded-full bg-linear-to-tr from-neutral-400/20 to-transparent blur-2xl"
               data-magnetic-layer-factor="0.85"
             />
             <div
-              className="magnetic-layer depth-layer-mid absolute right-6 top-6 h-20 w-20 rounded-full border border-black/12"
-              data-magnetic-layer-factor="1.25"
-            />
-            <div
-              className="magnetic-layer depth-layer-near absolute right-10 top-10 h-12 w-12 rounded-full border border-black/10"
-              data-magnetic-layer-factor="1.5"
-            />
-            <div
-              className="magnetic-layer depth-layer-mid absolute left-6 top-[46%] h-px w-[72%] bg-linear-to-r from-black/10 to-transparent"
-              data-magnetic-layer-factor="1.15"
-            />
-            <div
-              className="tilt-interactive premium-soft magnetic-layer depth-layer-mid relative flex min-h-[260px] flex-col justify-between rounded-xl p-5"
+              className="tilt-interactive premium-soft magnetic-layer depth-layer-mid relative flex min-h-[226px] flex-col gap-3 p-1 sm:p-2"
               data-tilt-factor="8"
               data-magnetic-layer-factor="1.1"
             >
-              <div className="magnetic-layer depth-layer-mid flex items-center gap-4" data-magnetic-layer-factor="1.35">
+              <div
+                className="magnetic-layer depth-layer-mid flex items-center gap-3 rounded-xl bg-white/55 p-2.5"
+                data-magnetic-layer-factor="1.35"
+              >
                 <div className="magnetic-layer depth-layer-near relative" data-magnetic-layer-factor="1.8">
-                  <div className="absolute -inset-2 rounded-2xl bg-black/8 blur-md" />
+                  <div className="absolute -inset-2 rounded-2xl bg-black/10 blur-md" />
                   <Image
                     src={withAssetVersion("/logo.png")}
                     alt="OrderLinks logo"
-                    width={72}
-                    height={72}
+                    width={60}
+                    height={60}
                     className="relative rounded-xl border border-black/10 bg-white p-1.5"
                   />
                 </div>
                 <div className="magnetic-layer depth-layer-near" data-magnetic-layer-factor="1.45">
                   <p className="section-title text-lg font-semibold tracking-wide">OrderLinks</p>
-                  <p className="text-xs text-neutral-600">Restaurant Operating Platform</p>
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-500">Restaurant Operating Platform</p>
                 </div>
               </div>
-              <div className="magnetic-layer depth-layer-mid space-y-3" data-magnetic-layer-factor="1.25">
-                <div className="flex items-center gap-2">
-                  <span className="magnetic-layer depth-layer-near h-2 w-2 rounded-full bg-neutral-900" data-magnetic-layer-factor="1.9" />
-                  <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-neutral-500">
-                    Swiss-ready, multilingual, conversion focused
-                  </span>
+              <div
+                className="magnetic-layer depth-layer-mid rounded-xl border border-slate-300/80 bg-slate-100/75 p-4"
+                data-magnetic-layer-factor="1.22"
+              >
+                <div className="mb-1.5 flex items-center justify-between">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">{dict.hero.pricingCardTitle}</p>
+                  <span className="h-2 w-2 rounded-full bg-slate-700/70" />
                 </div>
+                <p className="border-l-2 border-slate-400/70 pl-3 text-[13px] font-semibold leading-snug text-slate-900 sm:text-sm">
+                  {dict.hero.pricingHighlight}
+                </p>
+              </div>
+              <div className="magnetic-layer depth-layer-mid space-y-3" data-magnetic-layer-factor="1.25">
                 <div className="grid grid-cols-3 gap-2">
                   <div
-                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
                     data-magnetic-layer-factor="2"
                   >
                     Website
                   </div>
                   <div
-                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
                     data-magnetic-layer-factor="2.15"
                   >
                     Ordering
                   </div>
                   <div
-                    className="magnetic-layer depth-layer-near rounded-lg border border-black/10 bg-white px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
+                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
                     data-magnetic-layer-factor="2.3"
                   >
                     POS
@@ -968,6 +1085,25 @@ export default async function Home({ searchParams }: PageProps) {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="space-y-4" data-reveal data-reveal-direction="up">
+          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.customWebsiteTitle}</h2>
+          <p className="max-w-3xl text-neutral-700">{dict.section.customWebsiteSubtitle}</p>
+          <div className="grid gap-4 pt-2 md:grid-cols-2">
+            {dict.customWebsiteItems.map((item) => (
+              <article
+                key={item.title}
+                className="hover-lift magnetic magnetic-soft rounded-xl border border-black/10 bg-white/70 p-4"
+                data-magnetic-factor="5"
+                data-reveal
+                data-reveal-direction="up"
+              >
+                <h3 className="text-base font-semibold text-neutral-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700">{item.benefit}</p>
+              </article>
+            ))}
           </div>
         </section>
 

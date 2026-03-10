@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "Swiss restaurant software",
     "site web restaurant sur mesure",
     "commande en ligne",
-    "reservation en ligne",
+    "réservation en ligne",
     "restaurant software Schweiz",
     "mehrsprachige restaurant website Schweiz",
     "restaurant website builder",
