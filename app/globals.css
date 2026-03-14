@@ -180,12 +180,18 @@ button {
 }
 
 .lang-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(20, 20, 20, 0.14);
   border-radius: 999px;
   padding: 0.35rem 0.65rem;
+  min-height: 1.72rem;
   font-size: 0.72rem;
-  line-height: 1;
+  line-height: 1.15;
   font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
   color: #4a4a4a;
   background: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease;
@@ -200,6 +206,16 @@ button {
 
 .lang-switcher summary {
   list-style: none;
+}
+
+.lang-switcher > summary.nav-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  min-height: 2.1rem;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .lang-switcher summary::-webkit-details-marker {
@@ -686,6 +702,16 @@ button.magnetic {
   background: rgba(255, 255, 255, 0.85);
   font-size: 0.67rem;
   padding: 0.32rem 0.52rem;
+  min-height: 1.62rem;
+  line-height: 1.12;
+}
+
+.homepage-apple .lang-switcher > summary.nav-chip {
+  min-height: 2rem;
+  font-size: 0.7rem;
+  padding: 0.36rem 0.66rem;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
 }
 
 .homepage-apple .lang-chip-active {
@@ -1172,6 +1198,15 @@ button.magnetic {
   transition-delay: 180ms;
 }
 
+.homepage-apple .features-section .feature-showcase-stack > .feature-card[data-reveal] {
+  --reveal-y: 16px;
+  filter: blur(1.5px);
+  transition:
+    opacity 680ms cubic-bezier(0.22, 0.9, 0.2, 1),
+    transform 760ms cubic-bezier(0.22, 0.9, 0.2, 1),
+    filter 620ms cubic-bezier(0.22, 0.9, 0.2, 1);
+}
+
 .homepage-apple .kinetic-shell::after,
 .homepage-apple .tilt-interactive::before {
   display: none;
@@ -1217,6 +1252,20 @@ button.magnetic {
 
   .homepage-apple .home-nav-brand span {
     font-size: 0.86rem;
+  }
+
+  .homepage-apple .lang-switcher > summary.nav-chip {
+    min-height: 1.9rem;
+    font-size: 0.68rem;
+    padding: 0.32rem 0.62rem;
+    line-height: 1.1;
+  }
+
+  .homepage-apple .lang-chip {
+    min-height: 1.5rem;
+    font-size: 0.65rem;
+    line-height: 1.08;
+    padding: 0.27rem 0.48rem;
   }
 
   .homepage-apple .hero-subtitle {
@@ -1267,6 +1316,15 @@ button.magnetic {
   .homepage-apple [data-reveal] {
     --reveal-y: 12px;
     transition-duration: 480ms;
+  }
+
+  .homepage-apple .features-section .feature-showcase-stack > .feature-card[data-reveal] {
+    --reveal-y: 12px;
+    filter: blur(1px);
+    transition:
+      opacity 620ms cubic-bezier(0.24, 0.88, 0.22, 1),
+      transform 700ms cubic-bezier(0.24, 0.88, 0.22, 1),
+      filter 560ms cubic-bezier(0.24, 0.88, 0.22, 1);
   }
 }
 
@@ -1463,21 +1521,16 @@ button.magnetic {
     --parallax-shift: 0px !important;
     --mouse-shift-x: 0px !important;
     --mouse-shift-y: 0px !important;
+    animation: none !important;
   }
 
   [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
-    scroll-behavior: auto !important;
+    --reveal-y: 10px;
+    transform: translate3d(0, var(--reveal-y), 0) scale(1);
+    filter: none;
+    transition:
+      opacity 240ms cubic-bezier(0.26, 0.9, 0.25, 1),
+      transform 260ms cubic-bezier(0.26, 0.9, 0.25, 1);
   }
 
   .kinetic-shell::after,
@@ -1485,15 +1538,65 @@ button.magnetic {
     display: none !important;
   }
 
-  .tilt-interactive {
-    transform: none !important;
-  }
-
-  .magnetic {
-    transform: none !important;
-  }
-
+  .tilt-interactive,
+  .magnetic,
   .magnetic-layer {
     transform: none !important;
   }
+
+  .magnetic.magnetic-soft,
+  .magnetic-layer,
+  .hover-lift,
+  .feature-card,
+  .nav-chip,
+  .cta-primary,
+  .cta-secondary {
+    transition-duration: 180ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+.motion-lite .ambient-orb {
+  --parallax-shift: 0px !important;
+  --mouse-shift-x: 0px !important;
+  --mouse-shift-y: 0px !important;
+  animation: none !important;
+}
+
+.motion-lite [data-reveal] {
+  --reveal-y: 10px;
+  transform: translate3d(0, var(--reveal-y), 0) scale(1);
+  filter: none;
+  transition:
+    opacity 260ms cubic-bezier(0.26, 0.9, 0.25, 1),
+    transform 280ms cubic-bezier(0.26, 0.9, 0.25, 1);
+}
+
+.motion-lite .features-section .feature-showcase-stack > .feature-card[data-reveal] {
+  --reveal-y: 8px;
+  transition:
+    opacity 320ms cubic-bezier(0.26, 0.9, 0.25, 1),
+    transform 360ms cubic-bezier(0.26, 0.9, 0.25, 1);
+}
+
+.motion-lite .kinetic-shell::after,
+.motion-lite .tilt-interactive::before {
+  display: none !important;
+}
+
+.motion-lite .tilt-interactive,
+.motion-lite .magnetic,
+.motion-lite .magnetic-layer {
+  transform: none !important;
+}
+
+.motion-lite .magnetic.magnetic-soft,
+.motion-lite .magnetic-layer,
+.motion-lite .hover-lift,
+.motion-lite .feature-card,
+.motion-lite .nav-chip,
+.motion-lite .cta-primary,
+.motion-lite .cta-secondary {
+  transition-duration: 180ms !important;
+  transition-delay: 0ms !important;
 }

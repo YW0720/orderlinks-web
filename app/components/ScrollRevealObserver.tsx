@@ -38,18 +38,31 @@ export default function ScrollRevealObserver() {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+    const navigatorWithConnection = navigator as Navigator & {
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+      };
+    };
+    const connection = navigatorWithConnection.connection;
+    const saveData = connection?.saveData === true;
+    const isSlowConnection = ["slow-2g", "2g"].includes(
+      connection?.effectiveType ?? "",
+    );
+    const lowCoreDevice =
+      typeof navigator.hardwareConcurrency === "number" &&
+      navigator.hardwareConcurrency > 0 &&
+      navigator.hardwareConcurrency <= 4;
+    const useLiteMotion = prefersReduced || saveData || isSlowConnection || lowCoreDevice;
+    document.documentElement.classList.toggle("motion-lite", useLiteMotion);
 
-    elements.forEach((element) => {
-      const delay = element.dataset.revealDelay;
-      if (delay) {
-        element.style.setProperty("--reveal-delay", `${delay}ms`);
-      }
+    elements.forEach((element, index) => {
+      const delayRaw = Number(element.dataset.revealDelay ?? "0");
+      const delay = Number.isNaN(delayRaw) ? 0 : delayRaw;
+      const liteStagger = Math.min(index * 26, 180);
+      const appliedDelay = useLiteMotion ? Math.min(delay, 120) + liteStagger : delay;
+      element.style.setProperty("--reveal-delay", `${appliedDelay}ms`);
     });
-
-    if (prefersReduced) {
-      elements.forEach((element) => element.classList.add("reveal-visible"));
-      return;
-    }
 
     let scrollRafId = 0;
     let ticking = false;
@@ -86,9 +99,15 @@ export default function ScrollRevealObserver() {
       scrollRafId = window.requestAnimationFrame(updateParallax);
     };
 
-    updateParallax();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    if (useLiteMotion) {
+      parallaxElements.forEach((element) => {
+        element.style.setProperty("--parallax-shift", "0px");
+      });
+    } else {
+      updateParallax();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+    }
 
     const applyMouseShift = (x: number, y: number) => {
       mouseElements.forEach((element) => {
@@ -148,13 +167,13 @@ export default function ScrollRevealObserver() {
       ensureMouseAnimation();
     };
 
-    if (supportsFinePointer && mouseElements.length > 0) {
+    if (!useLiteMotion && supportsFinePointer && mouseElements.length > 0) {
       window.addEventListener("pointermove", onPointerMove, { passive: true });
       window.addEventListener("pointerleave", resetMouseShift);
       window.addEventListener("blur", resetMouseShift);
     }
 
-    if (supportsFinePointer && tiltElements.length > 0) {
+    if (!useLiteMotion && supportsFinePointer && tiltElements.length > 0) {
       tiltElements.forEach((element) => {
         const tiltFactor = Number(element.dataset.tiltFactor ?? "7");
         const maxTilt = Number.isNaN(tiltFactor) ? 7 : Math.min(Math.max(tiltFactor, 3), 14);
@@ -194,7 +213,7 @@ export default function ScrollRevealObserver() {
       });
     }
 
-    if (supportsFinePointer && magneticElements.length > 0) {
+    if (!useLiteMotion && supportsFinePointer && magneticElements.length > 0) {
       magneticElements.forEach((element) => {
         const magneticFactor = Number(element.dataset.magneticFactor ?? "8");
         const maxOffset = Number.isNaN(magneticFactor) ? 5 : Math.min(Math.max(magneticFactor, 2), 10);
@@ -271,9 +290,10 @@ export default function ScrollRevealObserver() {
 
     return () => {
       observer.disconnect();
+      document.documentElement.classList.remove("motion-lite");
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      if (supportsFinePointer && mouseElements.length > 0) {
+      if (!useLiteMotion && supportsFinePointer && mouseElements.length > 0) {
         window.removeEventListener("pointermove", onPointerMove);
         window.removeEventListener("pointerleave", resetMouseShift);
         window.removeEventListener("blur", resetMouseShift);
