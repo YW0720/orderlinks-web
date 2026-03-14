@@ -82,7 +82,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         "OrderLinks 将网站定制、在线点餐、预约、后厨协作与经营分析整合为统一方案。在保持品牌质感的同时，确保每个环节都能直接服务订单转化与运营效率。",
       pricingCardTitle: "网站价格",
       pricingHighlight:
-        "标准定制网页服务 750 CHF 起；如同时开通预约、在线点餐等附加功能，可享组合优惠。若您已拥有餐厅官网，也可在现有网站基础上接入相关功能，从而节省大量定制费用。系统维护、更新与基础支持费用 19 CHF/月起。欢迎前往价格计算器页面查看详细报价。",
+        "标准定制网页服务 750 CHF；如同时开通预约、在线点餐等附加功能，可享组合优惠。若您已拥有餐厅官网，也可在此基础上接入相关功能，从而节省大量定制费用。系统维护、更新与基础支持费用 19 CHF/月起。欢迎前往价格计算器页面查看详细报价。",
       ctaPrimary: "获取专属价格测算",
       ctaSecondary: "查看产品 Demo",
     },
@@ -117,6 +117,11 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         benefit:
           "默认覆盖瑞士核心客群语言，并可按业务需要付费扩展更多语种，提升跨区域触达效率与沟通一致性。",
       },
+      {
+        title: "长期维护与持续优化",
+        benefit:
+          "提供稳定的长期维护与内容迭代支持，持续进行性能、兼容性与转化细节优化，确保网站在不同运营阶段都能保持专业体验与业务价值。",
+      },
     ],
     faq: [
       {
@@ -130,10 +135,6 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "支付能力是否集成？",
         a: "支持 Stripe 在线付款能力，并可与餐厅业务流程结合，实现更完整的下单与支付闭环。",
-      },
-      {
-        q: "系统是否支持数据导出和经营分析？",
-        a: "是的，当您选择 POS 或在线点餐相关功能后，系统可提供图表化经营数据与历史订单 Excel 导出，便于餐厅进行日常复盘与经营决策。",
       },
     ],
     features: [
@@ -237,7 +238,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         "OrderLinks unifies custom website design, online ordering, reservation flow, kitchen coordination, and analytics. The result is a refined customer journey with measurable commercial impact.",
       pricingCardTitle: "Website Pricing",
       pricingHighlight:
-        "Standard custom website delivery starts at CHF 750. Preferential bundled pricing applies when add-ons such as reservations and online ordering are enabled. If your restaurant already has an existing website, the same features can be integrated into your current site, helping you save substantial customization costs. Fees for maintenance, updates, and basic support start at CHF 19/month. You are welcome to visit the pricing calculator page for a detailed quotation.",
+        "Standard custom website delivery is CHF 750. Preferential bundled pricing applies when add-ons such as reservations and online ordering are enabled. If your restaurant already has an existing website, the same features can be integrated into your current site, helping you save substantial customization costs. Fees for maintenance, updates, and basic support start at CHF 19/month. You are welcome to visit the pricing calculator page for a detailed quotation.",
       ctaPrimary: "Get Pricing Estimate",
       ctaSecondary: "View Product Demo",
     },
@@ -272,6 +273,11 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         benefit:
           "Core Swiss market languages are supported by default, with optional paid expansion to additional languages as needed.",
       },
+      {
+        title: "Long-term maintenance and continuous optimization",
+        benefit:
+          "Ongoing maintenance and iterative improvements keep your site reliable while continuously refining performance, compatibility, and conversion details as your business evolves.",
+      },
     ],
     faq: [
       {
@@ -285,10 +291,6 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "Can online payment be integrated?",
         a: "Stripe-based payment workflow is supported to provide a smoother order-to-payment journey.",
-      },
-      {
-        q: "Do you support data export and analytics?",
-        a: "Yes. When POS or online ordering features are enabled, the system provides analytics dashboards and historical order export in Excel to support daily operational reviews and decision-making.",
       },
     ],
     features: [
@@ -398,7 +400,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         "OrderLinks réunit site sur mesure, commande en ligne, réservation, coordination cuisine et analyses dans une seule plateforme performante.",
       pricingCardTitle: "Prix du site web",
       pricingHighlight:
-        "Le service standard de site web sur mesure commence à CHF 750, avec un tarif groupé avantageux en cas d'activation de modules comme la réservation et la commande en ligne. Si votre restaurant dispose déjà d'un site, ces fonctionnalités peuvent être intégrées à l'existant afin de réduire les coûts de personnalisation. La maintenance, les mises à jour et le support de base commencent à CHF 19/mois. Consultez le calculateur de prix pour un devis détaillé.",
+        "Le service standard de site web sur mesure est de CHF 750, avec un tarif groupé avantageux en cas d'activation de modules comme la réservation et la commande en ligne. Si votre restaurant dispose déjà d'un site, ces fonctionnalités peuvent être intégrées à l'existant afin de réduire les coûts de personnalisation. La maintenance, les mises à jour et le support de base commencent à CHF 19/mois. Consultez le calculateur de prix pour un devis détaillé.",
       ctaPrimary: "Obtenir une estimation",
       ctaSecondary: "Voir la démo produit",
     },
@@ -433,6 +435,11 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         benefit:
           "Les langues principales du marché suisse sont couvertes, avec extension payante vers d'autres langues selon les besoins.",
       },
+      {
+        title: "Maintenance à long terme et optimisation continue",
+        benefit:
+          "Une maintenance durable et des améliorations régulières garantissent la fiabilité du site, avec des optimisations continues de performance, compatibilité et conversion selon l'évolution de votre activité.",
+      },
     ],
     faq: [
       {
@@ -446,10 +453,6 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "Le paiement en ligne est-il pris en charge ?",
         a: "Oui, Stripe peut être intégré pour fluidifier le parcours de commande et paiement.",
-      },
-      {
-        q: "Proposez-vous export et analyses ?",
-        a: "Oui. Lorsque les fonctionnalités POS ou commande en ligne sont activées, le système propose des tableaux d'analyse ainsi que l'export des commandes historiques en Excel pour faciliter le suivi quotidien et la prise de décision.",
       },
     ],
     features: [
@@ -559,7 +562,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         "OrderLinks vereint Website, Online-Bestellung, Reservierung, Küchenprozess und Analyse in einer integrierten Plattform für messbare Ergebnisse.",
       pricingCardTitle: "Website-Preis",
       pricingHighlight:
-        "Der Standardservice für eine individuell angepasste Website beginnt bei CHF 750. Bei Aktivierung von Zusatzfunktionen wie Reservierung und Online-Bestellung gelten gebündelte Preisvorteile. Falls Ihr Restaurant bereits eine Website hat, können dieselben Funktionen in die bestehende Seite integriert werden, um Anpassungskosten deutlich zu reduzieren. Wartung, Updates und Basis-Support beginnen bei CHF 19/Monat. Für ein detailliertes Angebot besuchen Sie bitte den Preisrechner.",
+        "Der Standardservice für eine individuell angepasste Website beträgt CHF 750. Bei Aktivierung von Zusatzfunktionen wie Reservierung und Online-Bestellung gelten gebündelte Preisvorteile. Falls Ihr Restaurant bereits eine Website hat, können dieselben Funktionen in die bestehende Seite integriert werden, um Anpassungskosten deutlich zu reduzieren. Wartung, Updates und Basis-Support beginnen bei CHF 19/Monat. Für ein detailliertes Angebot besuchen Sie bitte den Preisrechner.",
       ctaPrimary: "Preisabschätzung erhalten",
       ctaSecondary: "Produktdemo ansehen",
     },
@@ -594,6 +597,11 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         benefit:
           "Die zentralen Sprachen des Schweizer Marktes sind abgedeckt; weitere Sprachen können bei Bedarf kostenpflichtig erweitert werden.",
       },
+      {
+        title: "Langfristige Wartung und kontinuierliche Optimierung",
+        benefit:
+          "Durch laufende Wartung und fortlaufende Verbesserungen bleibt die Website stabil, während Performance, Kompatibilität und Conversion-Details über alle Betriebsphasen hinweg gezielt optimiert werden.",
+      },
     ],
     faq: [
       {
@@ -607,10 +615,6 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "Kann Online-Zahlung integriert werden?",
         a: "Ja, Stripe kann in den Bestellprozess eingebunden werden.",
-      },
-      {
-        q: "Gibt es Export und Analyse?",
-        a: "Ja. Wenn POS- oder Online-Bestellfunktionen aktiviert sind, stellt das System Analyse-Dashboards sowie den Excel-Export historischer Bestellungen bereit, um die tägliche Auswertung und fundierte Entscheidungen zu unterstützen.",
       },
     ],
     features: [
@@ -752,6 +756,39 @@ const CONTACT_TEXT: Record<
   },
 };
 
+const HERO_STATS: Record<
+  Locale,
+  Array<{
+    value: string;
+    label: string;
+  }>
+> = {
+  zh: [
+    { value: "3+", label: "支持语言" },
+    { value: "5-10", label: "天上线周期" },
+    { value: "CHF 550+", label: "网站交付起价" },
+    { value: "CHF 19/月+", label: "维护与支持起价" },
+  ],
+  en: [
+    { value: "3+", label: "Languages" },
+    { value: "5-10", label: "Days to launch" },
+    { value: "CHF 550+", label: "Website delivery" },
+    { value: "CHF 19/mo+", label: "Maintenance & support" },
+  ],
+  fr: [
+    { value: "3+", label: "Langues" },
+    { value: "5-10", label: "Jours de mise en ligne" },
+    { value: "CHF 550+", label: "Prix de départ du site" },
+    { value: "CHF 19/mois+", label: "Maintenance et support" },
+  ],
+  de: [
+    { value: "3+", label: "Sprachen" },
+    { value: "5-10", label: "Tage bis Go-Live" },
+    { value: "CHF 550+", label: "Website ab" },
+    { value: "CHF 19/Monat+", label: "Wartung und Support" },
+  ],
+};
+
 function resolveLocale(raw?: string): Locale {
   if (!raw) {
     return "en";
@@ -817,6 +854,7 @@ export default async function Home({ searchParams }: PageProps) {
   const locale = resolveLocale(params.lang);
   const dict = getDictionary(locale);
   const contact = CONTACT_TEXT[locale];
+  const heroStats = HERO_STATS[locale];
   const localeKeywords = HOME_SEO_KEYWORDS[locale];
 
   const softwareSchema = {
@@ -874,26 +912,8 @@ export default async function Home({ searchParams }: PageProps) {
   };
 
   return (
-    <div className="page-shell relative min-h-svh text-neutral-900">
+    <div className={`page-shell homepage-apple homepage-locale-${locale} relative min-h-svh text-neutral-900`}>
       <ScrollRevealObserver />
-      <div
-        className="ambient-orb ambient-orb-a"
-        aria-hidden
-        data-parallax-speed="0.055"
-        data-mouse-factor="10"
-      />
-      <div
-        className="ambient-orb ambient-orb-b"
-        aria-hidden
-        data-parallax-speed="-0.04"
-        data-mouse-factor="-12"
-      />
-      <div
-        className="ambient-orb ambient-orb-c"
-        aria-hidden
-        data-parallax-speed="0.03"
-        data-mouse-factor="8"
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
@@ -907,15 +927,15 @@ export default async function Home({ searchParams }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
 
-      <header className="sticky top-0 z-30 px-4 pt-4 sm:px-6 lg:px-10">
-        <div className="liquid-glass mx-auto flex w-full max-w-7xl flex-col gap-2 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
-          <Link href={LOCALE_PATHS[locale]} className="flex items-center gap-2">
+      <header className="sticky top-0 z-30 px-4 pt-3 sm:px-6 lg:px-10">
+        <div className="liquid-glass home-nav mx-auto flex w-full max-w-7xl flex-col gap-2 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-6">
+          <Link href={LOCALE_PATHS[locale]} className="home-nav-brand flex items-center gap-2">
             <Image src={withAssetVersion("/logo.png")} alt="OrderLinks logo" width={36} height={36} />
             <span className="text-sm font-semibold tracking-wide">OrderLinks</span>
           </Link>
-          <nav className="flex w-full items-center gap-2 text-sm sm:w-auto">
+          <nav className="home-nav-links flex w-full items-center gap-2 text-sm sm:w-auto">
             <Link
-              className="nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              className="home-nav-link nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
               href={PRICING_LOCALE_PATHS[locale]}
               data-magnetic-factor="4"
             >
@@ -924,7 +944,7 @@ export default async function Home({ searchParams }: PageProps) {
               </span>
             </Link>
             <Link
-              className="nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
+              className="home-nav-link nav-chip magnetic magnetic-soft block flex-1 truncate px-3 py-2 text-center text-xs sm:flex-none sm:px-4 sm:py-[0.45rem] sm:text-sm"
               href="https://orderlinksdemo.ch"
               target="_blank"
               rel="noreferrer"
@@ -950,8 +970,8 @@ export default async function Home({ searchParams }: PageProps) {
                 ))}
               </div>
             </details>
-            <div className="hidden items-center gap-2 sm:flex">
-              <span className="hidden text-xs text-neutral-600 sm:inline">{dict.nav.language}</span>
+            <div className="home-lang-list hidden items-center gap-2 sm:flex">
+              <span className="home-lang-label hidden text-xs text-neutral-600 sm:inline">{dict.nav.language}</span>
               {SUPPORTED_LOCALES.map((lang) => (
                 <Link
                   key={lang}
@@ -966,23 +986,19 @@ export default async function Home({ searchParams }: PageProps) {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-20 pt-10 sm:px-6 lg:px-10">
-        <section
-          className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"
-          data-reveal
-          data-reveal-direction="up"
-        >
-          <div className="space-y-6" data-reveal data-reveal-delay="40" data-reveal-direction="up">
-            <p className="inline-flex rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-medium tracking-wide text-neutral-700">
+      <main className="home-main mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-20 pt-10 sm:px-6 lg:px-10">
+        <section className="hero-section" data-reveal data-reveal-direction="up">
+          <div className="hero-top space-y-6" data-reveal data-reveal-delay="40" data-reveal-direction="up">
+            <p className="hero-badge inline-flex rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-medium tracking-wide text-neutral-700">
               {dict.hero.badge}
             </p>
-            <h1 className="display-title text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="display-title hero-title text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               {dict.hero.title}
             </h1>
-            <p className="max-w-3xl text-base leading-relaxed text-neutral-700 sm:text-lg">
+            <p className="hero-subtitle max-w-3xl text-base leading-relaxed text-neutral-700 sm:text-lg">
               {dict.hero.subtitle}
             </p>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="hero-cta-row flex flex-wrap items-center gap-3">
               <Link
                 href={PRICING_LOCALE_PATHS[locale]}
                 className="group cta-primary magnetic magnetic-soft"
@@ -1011,95 +1027,88 @@ export default async function Home({ searchParams }: PageProps) {
               </Link>
             </div>
           </div>
-          <div
-            className="glass-section hover-lift magnetic magnetic-soft kinetic-shell relative overflow-hidden rounded-2xl border border-black/10 bg-linear-to-br from-white/90 via-white/78 to-neutral-100/65 p-4 shadow-[0_14px_30px_rgba(20,20,20,0.08)] sm:p-5"
-            data-reveal
-            data-reveal-delay="120"
-            data-reveal-direction="left"
-            data-magnetic-factor="6"
-          >
+          <div className="hero-visual-wrap" data-reveal data-reveal-delay="120" data-reveal-direction="up">
             <div
-              className="magnetic-layer depth-layer-far absolute -right-10 -top-12 h-48 w-48 rounded-full bg-linear-to-br from-neutral-300/35 to-transparent blur-2xl"
-              data-magnetic-layer-factor="0.8"
-            />
-            <div
-              className="magnetic-layer depth-layer-far absolute -bottom-16 -left-14 h-52 w-52 rounded-full bg-linear-to-tr from-neutral-400/20 to-transparent blur-2xl"
-              data-magnetic-layer-factor="0.85"
-            />
-            <div
-              className="tilt-interactive premium-soft magnetic-layer depth-layer-mid relative flex min-h-[226px] flex-col gap-3 p-1 sm:p-2"
-              data-tilt-factor="8"
-              data-magnetic-layer-factor="1.1"
+              className="glass-section hero-pricing-card hover-lift magnetic magnetic-soft relative overflow-hidden rounded-2xl border border-black/10 bg-linear-to-br from-white/90 via-white/78 to-neutral-100/65 p-4 shadow-[0_14px_30px_rgba(20,20,20,0.08)] sm:p-5"
+              data-magnetic-factor="6"
             >
               <div
-                className="magnetic-layer depth-layer-mid flex items-center gap-3 rounded-xl bg-white/55 p-2.5"
-                data-magnetic-layer-factor="1.35"
-              >
-                <div className="magnetic-layer depth-layer-near relative" data-magnetic-layer-factor="1.8">
-                  <div className="absolute -inset-2 rounded-2xl bg-black/10 blur-md" />
-                  <Image
-                    src={withAssetVersion("/logo.png")}
-                    alt="OrderLinks logo"
-                    width={60}
-                    height={60}
-                    className="relative rounded-xl border border-black/10 bg-white p-1.5"
-                  />
-                </div>
-                <div className="magnetic-layer depth-layer-near" data-magnetic-layer-factor="1.45">
-                  <p className="section-title text-lg font-semibold tracking-wide">OrderLinks</p>
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-500">Restaurant Operating Platform</p>
-                </div>
-              </div>
+                className="deco-glow magnetic-layer depth-layer-far absolute -right-10 -top-12 h-48 w-48 rounded-full bg-linear-to-br from-neutral-300/35 to-transparent blur-2xl"
+                data-magnetic-layer-factor="0.8"
+              />
               <div
-                className="magnetic-layer depth-layer-mid rounded-xl border border-slate-300/80 bg-slate-100/75 p-4"
-                data-magnetic-layer-factor="1.22"
+                className="deco-glow magnetic-layer depth-layer-far absolute -bottom-16 -left-14 h-52 w-52 rounded-full bg-linear-to-tr from-neutral-400/20 to-transparent blur-2xl"
+                data-magnetic-layer-factor="0.85"
+              />
+              <div
+                className="tilt-interactive premium-soft magnetic-layer depth-layer-mid relative flex min-h-[226px] flex-col gap-3 p-1 sm:p-2"
+                data-tilt-factor="8"
+                data-magnetic-layer-factor="1.1"
               >
-                <div className="mb-1.5 flex items-center justify-between">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">{dict.hero.pricingCardTitle}</p>
-                  <span className="h-2 w-2 rounded-full bg-slate-700/70" />
+                <div
+                  className="magnetic-layer depth-layer-mid flex items-center gap-3 rounded-xl bg-white/55 p-2.5"
+                  data-magnetic-layer-factor="1.35"
+                >
+                  <div className="magnetic-layer depth-layer-near relative" data-magnetic-layer-factor="1.8">
+                    <div className="absolute -inset-2 rounded-2xl bg-black/10 blur-md" />
+                    <Image
+                      src={withAssetVersion("/logo.png")}
+                      alt="OrderLinks logo"
+                      width={60}
+                      height={60}
+                      className="relative rounded-xl border border-black/10 bg-white p-1.5"
+                    />
+                  </div>
+                  <div className="magnetic-layer depth-layer-near" data-magnetic-layer-factor="1.45">
+                    <p className="section-title text-lg font-semibold tracking-wide">OrderLinks</p>
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-500">Restaurant Operating Platform</p>
+                  </div>
                 </div>
-                <p className="border-l-2 border-slate-400/70 pl-3 text-[13px] font-semibold leading-snug text-slate-900 sm:text-sm">
-                  {dict.hero.pricingHighlight}
-                </p>
-              </div>
-              <div className="magnetic-layer depth-layer-mid space-y-3" data-magnetic-layer-factor="1.25">
-                <div className="grid grid-cols-3 gap-2">
-                  <div
-                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
-                    data-magnetic-layer-factor="2"
-                  >
-                    Website
+                <div
+                  className="magnetic-layer depth-layer-mid rounded-xl border border-slate-300/80 bg-slate-100/75 p-4"
+                  data-magnetic-layer-factor="1.22"
+                >
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">{dict.hero.pricingCardTitle}</p>
+                    <span className="h-2 w-2 rounded-full bg-slate-700/70" />
                   </div>
-                  <div
-                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
-                    data-magnetic-layer-factor="2.15"
-                  >
-                    Ordering
-                  </div>
-                  <div
-                    className="magnetic-layer depth-layer-near rounded-full border border-black/10 bg-white/85 px-3 py-2 text-center text-xs font-semibold tracking-wide transition duration-300 hover:-translate-y-px"
-                    data-magnetic-layer-factor="2.3"
-                  >
-                    POS
-                  </div>
+                  <p className="border-l-2 border-slate-400/70 pl-3 text-[13px] font-semibold leading-snug text-slate-900 sm:text-sm">
+                    {dict.hero.pricingHighlight}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+          <div className="hero-highlights" data-reveal data-reveal-delay="180" data-reveal-direction="up">
+            {heroStats.map((item, index) => (
+              <article
+                key={`${item.value}-${item.label}`}
+                className={`hero-highlight-item ${index === heroStats.length - 1 ? "hero-highlight-item-wide" : "hero-highlight-item-compact"}`}
+              >
+                <p className="hero-highlight-value">{item.value}</p>
+                <p className="hero-highlight-label">{item.label}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
-        <section className="space-y-4" data-reveal data-reveal-direction="up">
-          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.customWebsiteTitle}</h2>
-          <p className="max-w-3xl text-neutral-700">{dict.section.customWebsiteSubtitle}</p>
-          <div className="grid gap-4 pt-2 md:grid-cols-2">
-            {dict.customWebsiteItems.map((item) => (
+        <section className="benefits-section space-y-4" data-reveal data-reveal-direction="up">
+          <h2 className="section-title home-section-title text-2xl font-semibold sm:text-3xl">{dict.section.customWebsiteTitle}</h2>
+          <p className="home-section-subtitle max-w-3xl text-neutral-700">{dict.section.customWebsiteSubtitle}</p>
+          <div className="benefits-grid grid gap-4 pt-2 md:grid-cols-2">
+            {dict.customWebsiteItems.map((item, index) => (
               <article
                 key={item.title}
-                className="hover-lift magnetic magnetic-soft rounded-xl border border-black/10 bg-white/70 p-4"
+                className={`benefit-card hover-lift magnetic magnetic-soft rounded-xl border border-black/10 bg-white/70 p-4 ${
+                  index === 0 ? "benefit-card-emphasis md:col-span-2" : ""
+                }`}
                 data-magnetic-factor="5"
                 data-reveal
                 data-reveal-direction="up"
               >
+                <p className="mb-2 text-xs font-semibold tracking-[0.12em] text-neutral-500">
+                  {(index + 1).toString().padStart(2, "0")}
+                </p>
                 <h3 className="text-base font-semibold text-neutral-900">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700">{item.benefit}</p>
               </article>
@@ -1107,23 +1116,40 @@ export default async function Home({ searchParams }: PageProps) {
           </div>
         </section>
 
-        <section className="space-y-3" data-reveal data-reveal-direction="up">
-          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.featureTitle}</h2>
-          <p className="max-w-3xl text-neutral-700">{dict.section.featureSubtitle}</p>
-          <div className="grid gap-5 pt-4 lg:grid-cols-2">
+        <section className="features-section space-y-3" data-reveal data-reveal-direction="up">
+          <h2 className="section-title home-section-title text-2xl font-semibold sm:text-3xl">{dict.section.featureTitle}</h2>
+          <p className="home-section-subtitle max-w-3xl text-neutral-700">{dict.section.featureSubtitle}</p>
+          <div className="feature-showcase-stack pt-4">
             {dict.features.map((feature, index) => {
               const hasDevicePairLayout =
                 feature.medias.length === 2 && feature.medias.some((item) => item.portrait) && feature.medias.some((item) => !item.portrait);
+              const spotlight = index < 2;
 
               return (
                 <article
                   key={feature.title}
-                  className="feature-card magnetic magnetic-soft"
+                  className={`feature-card product-card magnetic magnetic-soft ${spotlight ? "feature-card-spotlight" : ""}`}
                   data-magnetic-factor="6"
                   data-reveal
                   data-reveal-direction="up"
                   data-reveal-delay={String((index % 6) * 60)}
                 >
+                  <div className="feature-headline magnetic-layer depth-layer-mid mb-5 space-y-2" data-magnetic-layer-factor="1.12">
+                    <h3 className="magnetic-layer depth-layer-near text-[1.35rem] font-semibold leading-tight tracking-tight sm:text-[1.55rem]" data-magnetic-layer-factor="1.3">
+                      {feature.title}
+                      {feature.soon ? (
+                        <span
+                          className="magnetic-layer ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs font-medium text-white"
+                          data-magnetic-layer-factor="2.05"
+                        >
+                          Soon
+                        </span>
+                      ) : null}
+                    </h3>
+                    <p className="magnetic-layer depth-layer-far text-sm leading-relaxed text-neutral-700 sm:text-[0.95rem]" data-magnetic-layer-factor="1.05">
+                      {feature.description}
+                    </p>
+                  </div>
                   <div
                     className={`magnetic-layer depth-layer-mid grid gap-3 ${
                       feature.medias.length > 1
@@ -1137,7 +1163,7 @@ export default async function Home({ searchParams }: PageProps) {
                     {feature.medias.map((media, mediaIndex) => (
                       <div
                         key={`${feature.title}-${media.src}-${mediaIndex}`}
-                        className={`magnetic-layer depth-layer-near relative overflow-hidden rounded-xl border border-black/10 bg-[#f8f8f8] ${
+                        className={`product-media magnetic-layer depth-layer-near relative overflow-hidden rounded-xl border border-black/10 bg-[#f8f8f8] ${
                           feature.medias.length > 1
                             ? "flex h-[360px] items-center justify-center p-3 sm:h-[400px] lg:h-[430px]"
                             : ""
@@ -1187,22 +1213,6 @@ export default async function Home({ searchParams }: PageProps) {
                       </div>
                     ))}
                   </div>
-                  <div className="magnetic-layer depth-layer-mid mt-5 space-y-3" data-magnetic-layer-factor="1.15">
-                    <h3 className="magnetic-layer depth-layer-near text-lg font-semibold leading-snug" data-magnetic-layer-factor="1.55">
-                      {feature.title}
-                      {feature.soon ? (
-                        <span
-                          className="magnetic-layer ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs font-medium text-white"
-                          data-magnetic-layer-factor="2.05"
-                        >
-                          Soon
-                        </span>
-                      ) : null}
-                    </h3>
-                    <p className="magnetic-layer depth-layer-far text-sm leading-relaxed text-neutral-700" data-magnetic-layer-factor="1.05">
-                      {feature.description}
-                    </p>
-                  </div>
                 </article>
               );
             })}
@@ -1210,136 +1220,58 @@ export default async function Home({ searchParams }: PageProps) {
         </section>
 
         <section
-          className="glass-section space-y-3 rounded-2xl p-6 sm:p-8"
+          className="glass-section faq-section space-y-3 rounded-2xl p-6 sm:p-8"
           data-reveal
           data-reveal-direction="up"
         >
-          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{dict.section.faqTitle}</h2>
-          <p className="text-neutral-700">{dict.section.faqSubtitle}</p>
-          <div className="grid gap-4 pt-2 md:grid-cols-2">
+          <h2 className="section-title home-section-title text-2xl font-semibold sm:text-3xl">{dict.section.faqTitle}</h2>
+          <p className="home-section-subtitle text-neutral-700">{dict.section.faqSubtitle}</p>
+          <div className="faq-list pt-2">
             {dict.faq.map((item) => (
-              <article
+              <details
                 key={item.q}
-                className="hover-lift magnetic magnetic-soft kinetic-shell rounded-xl border border-black/10 bg-[#fafafa] p-0"
-                data-magnetic-factor="5"
+                className="faq-card faq-item hover-lift magnetic magnetic-soft rounded-xl border border-black/10 bg-[#fafafa] p-0"
+                data-magnetic-factor="4"
                 data-reveal
                 data-reveal-delay="80"
                 data-reveal-direction="up"
               >
-                <div
-                  className="tilt-interactive magnetic-layer depth-layer-mid premium-soft rounded-xl p-4"
-                  data-tilt-factor="6"
-                  data-magnetic-layer-factor="1.2"
-                >
-                  <h3 className="magnetic-layer depth-layer-near text-base font-semibold" data-magnetic-layer-factor="1.55">
-                    {item.q}
-                  </h3>
-                  <p className="magnetic-layer depth-layer-far mt-2 text-sm leading-relaxed text-neutral-700" data-magnetic-layer-factor="1.05">
-                    {item.a}
-                  </p>
+                <summary className="faq-trigger flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 text-left">
+                  <h3 className="text-base font-semibold">{item.q}</h3>
+                  <span aria-hidden className="faq-plus text-lg leading-none text-neutral-500">
+                    +
+                  </span>
+                </summary>
+                <div className="faq-content border-t border-black/8 px-4 pb-4 pt-3">
+                  <p className="text-sm leading-relaxed text-neutral-700">{item.a}</p>
                 </div>
-              </article>
+              </details>
             ))}
           </div>
         </section>
 
         <section
-          className="glass-section space-y-3 rounded-2xl p-6 sm:p-8"
+          className="glass-section contact-section space-y-3 rounded-2xl p-6 sm:p-8"
           data-reveal
           data-reveal-direction="up"
         >
-          <h2 className="section-title text-2xl font-semibold sm:text-3xl">{contact.title}</h2>
-          <p className="text-neutral-700">{contact.subtitle}</p>
-          <div className="grid gap-3 pt-2 sm:grid-cols-2 lg:grid-cols-3">
-            <a
-              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
-              href="mailto:contact@orderlinks.ch"
-              data-magnetic-factor="5"
-            >
-              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
-                    data-magnetic-layer-factor="1.9"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3.75 7.5 12 13.25 20.25 7.5" />
-                      <rect x="3.75" y="5.25" width="16.5" height="13.5" rx="2.25" strokeWidth="1.8" />
-                    </svg>
-                  </span>
-                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
-                    {contact.email}
-                  </p>
-                </div>
-                <p
-                  className="magnetic-layer mt-2 break-all text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
-                  data-magnetic-layer-factor="1.1"
-                >
-                  contact@orderlinks.ch
-                </p>
-              </div>
-            </a>
-            <a
-              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6"
-              href="tel:+41782495983"
-              data-magnetic-factor="5"
-            >
-              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
-                    data-magnetic-layer-factor="1.9"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-none stroke-current">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                        d="M4.8 6.2a2 2 0 0 1 2.08-1.1l2.2.44a2 2 0 0 1 1.6 1.58l.27 1.34a2 2 0 0 1-.58 1.86l-1.06 1.06a14.2 14.2 0 0 0 4.3 4.3l1.06-1.06a2 2 0 0 1 1.86-.58l1.34.27a2 2 0 0 1 1.58 1.6l.44 2.2a2 2 0 0 1-1.1 2.08l-1.19.6c-.78.39-1.67.44-2.48.13a19.2 19.2 0 0 1-11.9-11.9 2.9 2.9 0 0 1 .13-2.48l.6-1.19Z"
-                      />
-                    </svg>
-                  </span>
-                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
-                    {contact.phone}
-                  </p>
-                </div>
-                <p
-                  className="magnetic-layer mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
-                  data-magnetic-layer-factor="1.1"
-                >
-                  +41 78 249 59 83
-                </p>
-              </div>
-            </a>
-            <a
-              className="group magnetic kinetic-shell rounded-xl border border-[#121212]/15 bg-[#121212]/3 p-0 transition hover:border-[#121212]/35 hover:bg-[#121212]/6 sm:col-span-2 lg:col-span-1"
-              href="https://wa.me/41782495983"
-              target="_blank"
-              rel="noreferrer"
-              data-magnetic-factor="5"
-            >
-              <div className="tilt-interactive rounded-xl p-4" data-tilt-factor="5">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="magnetic-layer flex h-7 w-7 items-center justify-center rounded-full bg-[#121212] text-white"
-                    data-magnetic-layer-factor="1.9"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-current">
-                      <path d="M12 4a8 8 0 0 0-6.95 11.95L4 20l4.2-1.02A8 8 0 1 0 12 4Zm0 14.5a6.45 6.45 0 0 1-3.3-.9l-.24-.14-2.5.61.62-2.43-.16-.25A6.5 6.5 0 1 1 12 18.5Zm3.57-4.2c-.2-.1-1.16-.57-1.35-.64-.18-.06-.31-.1-.45.1-.13.2-.5.64-.61.76-.11.12-.22.14-.41.05a5.3 5.3 0 0 1-1.56-.96 5.95 5.95 0 0 1-1.1-1.37c-.11-.2-.01-.3.08-.4.09-.09.2-.22.3-.33.1-.12.13-.2.2-.34.07-.13.03-.24-.02-.34-.05-.1-.45-1.07-.61-1.47-.16-.38-.33-.33-.45-.34h-.38a.73.73 0 0 0-.53.25c-.18.2-.69.68-.69 1.66 0 .97.71 1.91.8 2.04.1.13 1.4 2.13 3.4 2.99.47.2.84.31 1.13.4.47.15.9.13 1.24.08.38-.06 1.16-.47 1.33-.92.16-.45.16-.84.11-.92-.05-.08-.18-.13-.38-.23Z" />
-                    </svg>
-                  </span>
-                  <p className="magnetic-layer text-xs font-semibold uppercase tracking-wide text-[#121212]/70" data-magnetic-layer-factor="1.3">
-                    {contact.whatsapp}
-                  </p>
-                </div>
-                <p
-                  className="magnetic-layer mt-2 text-sm font-semibold text-[#121212] underline-offset-4 group-hover:underline"
-                  data-magnetic-layer-factor="1.1"
-                >
-                  +41 78 249 59 83
-                </p>
-              </div>
-            </a>
+          <h2 className="section-title home-section-title text-2xl font-semibold sm:text-3xl">{contact.title}</h2>
+          <p className="home-section-subtitle text-neutral-700">{contact.subtitle}</p>
+          <div className="contact-panel pt-2">
+            <div className="contact-quick-links">
+              <a className="contact-inline-link" href="mailto:contact@orderlinks.ch">
+                <span className="contact-inline-label">{contact.email}</span>
+                <span className="contact-inline-value">contact@orderlinks.ch</span>
+              </a>
+              <a className="contact-inline-link" href="tel:+41782495983">
+                <span className="contact-inline-label">{contact.phone}</span>
+                <span className="contact-inline-value">+41 78 249 59 83</span>
+              </a>
+              <a className="contact-inline-link" href="https://wa.me/41782495983" target="_blank" rel="noreferrer">
+                <span className="contact-inline-label">{contact.whatsapp}</span>
+                <span className="contact-inline-value">+41 78 249 59 83</span>
+              </a>
+            </div>
           </div>
           <p className="text-sm text-neutral-700">{contact.hours}</p>
         </section>

@@ -256,9 +256,10 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
     const concurrentCount = Number.parseInt(concurrentInput, 10);
     const orderMode: OrderMode = hasQrOrder && hasTakeawayOrder ? "both" : hasQrOrder || hasTakeawayOrder ? "single" : "none";
 
-    const enabledFeatureCount = (hasReservation ? 1 : 0) + (hasPos ? 1 : 0) + (orderMode !== "none" ? 1 : 0);
-    const requiresIntegrationFeature = hasSite === "yes" && enabledFeatureCount === 0;
-    const setupFee = BASE_SETUP_FEE - enabledFeatureCount * FEATURE_SETUP_DISCOUNT;
+    const integrationFeatureCount =
+      (hasReservation ? 1 : 0) + (hasPos ? 1 : 0) + (hasQrOrder ? 1 : 0) + (hasTakeawayOrder ? 1 : 0);
+    const requiresIntegrationFeature = hasSite === "yes" && integrationFeatureCount === 0;
+    const setupFee = BASE_SETUP_FEE - integrationFeatureCount * FEATURE_SETUP_DISCOUNT;
 
     if (requiresIntegrationFeature) {
       return {
