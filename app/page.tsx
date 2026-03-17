@@ -133,6 +133,10 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         a: "在餐厅资料与素材齐备的情况下，标准项目通常可在 5-10 天内完成上线；如涉及较多定制功能，周期将根据范围做相应评估。",
       },
       {
+        q: "网页内容更新频率是怎样的？",
+        a: "基础支持包含每月 1 次免费更新。若需要更高频率，可在价格计算器选择“更新服务支持”：每周更新或每日更新。",
+      },
+      {
         q: "支付能力是否集成？",
         a: "支持 Stripe 在线付款能力，并可与餐厅业务流程结合，实现更完整的下单与支付闭环。",
       },
@@ -289,6 +293,10 @@ const DICTIONARY: Record<Locale, Dictionary> = {
         a: "When core materials are ready, a standard website project is typically delivered within 5-10 days. If broader custom requirements are included, the timeline is adjusted based on scope.",
       },
       {
+        q: "How often can website content be updated?",
+        a: "Base support includes one free content update per month. If you need a higher frequency, choose \"Update Service Support\" in the pricing calculator: weekly updates or daily updates.",
+      },
+      {
         q: "Can online payment be integrated?",
         a: "Stripe-based payment workflow is supported to provide a smoother order-to-payment journey.",
       },
@@ -394,7 +402,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       language: "Langue",
     },
     hero: {
-      badge: "Platform moderne pour restaurants suisses",
+      badge: "Plateforme moderne pour restaurants suisses",
       title: "Une expérience digitale haut de gamme orientée conversion",
       subtitle:
         "OrderLinks réunit site sur mesure, commande en ligne, réservation, coordination cuisine et analyses dans une seule plateforme performante.",
@@ -416,7 +424,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
     },
     customWebsiteItems: [
       {
-        title: "Presentation visuelle de haute qualite et effets d'interaction",
+        title: "Présentation visuelle de haute qualité et effets d'interaction",
         benefit:
           "Une identité visuelle cohérente et des animations discrètes renforcent la crédibilité de la marque et la qualité de perception.",
       },
@@ -449,6 +457,10 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "En combien de jours le site peut-il être mis en ligne ?",
         a: "Lorsque les contenus et ressources principaux sont prêts, un projet standard est généralement mis en ligne sous 5-10 jours. En cas de personnalisation étendue, le délai est ajusté selon le périmètre.",
+      },
+      {
+        q: "À quelle fréquence le contenu du site peut-il être mis à jour ?",
+        a: "Le support de base inclut 1 mise à jour gratuite par mois. Si vous avez besoin d’une fréquence plus élevée, choisissez l’option « Support de mise à jour » dans le calculateur : mise à jour hebdomadaire ou quotidienne.",
       },
       {
         q: "Le paiement en ligne est-il pris en charge ?",
@@ -556,7 +568,7 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       language: "Sprache",
     },
     hero: {
-      badge: "Moderne Platform für Schweizer Restaurants",
+      badge: "Moderne Plattform für Schweizer Restaurants",
       title: "Premium-Digitalerlebnis mit klarer Conversion-Wirkung",
       subtitle:
         "OrderLinks vereint Website, Online-Bestellung, Reservierung, Küchenprozess und Analyse in einer integrierten Plattform für messbare Ergebnisse.",
@@ -611,6 +623,10 @@ const DICTIONARY: Record<Locale, Dictionary> = {
       {
         q: "In wie vielen Tagen kann die Website live gehen?",
         a: "Wenn alle zentralen Inhalte und Materialien vorliegen, kann ein Standardprojekt in der Regel innerhalb von 5-10 Tagen live gehen. Bei erweitertem Funktionsumfang wird der Zeitplan entsprechend des Umfangs angepasst.",
+      },
+      {
+        q: "Wie oft können Website-Inhalte aktualisiert werden?",
+        a: "Im Basissupport ist 1 kostenloses Inhaltsupdate pro Monat enthalten. Falls Sie häufigere Updates brauchen, wählen Sie im Preisrechner „Aktualisierungsservice“: wöchentliche Updates oder tägliche Updates.",
       },
       {
         q: "Kann Online-Zahlung integriert werden?",

@@ -26,11 +26,20 @@ type Labels = {
   qrOrderFeature: string;
   takeawayOrderFeature: string;
   concurrentUsers: string;
+  updateFrequency: string;
+  updateFrequencyMonthly: string;
+  updateFrequencyWeekly: string;
+  updateFrequencyDaily: string;
   monthly: string;
   annual: string;
   note: string;
   custom: string;
   includes: string;
+  baseUpdateNotice: string;
+  maintenanceIncludedTitle: string;
+  maintenanceSsl: string;
+  maintenanceSeo: string;
+  maintenanceMonitoring: string;
   contactTitle: string;
   email: string;
   phone: string;
@@ -56,6 +65,13 @@ const POS_WITH_ORDER_SURCHARGE_3Y = 10;
 const POS_WITH_ORDER_SURCHARGE_1Y = 20;
 
 type OrderMode = "none" | "single" | "both";
+type UpdateCadence = "monthly" | "weekly" | "daily";
+
+const UPDATE_CADENCE_SURCHARGE: Record<UpdateCadence, number> = {
+  monthly: 0,
+  weekly: 10,
+  daily: 30,
+};
 
 function resolveSingleOrderTier(count: number) {
   if (count <= 50) {
@@ -102,7 +118,7 @@ const TEXT: Record<Locale, Labels> = {
     no: "没有",
     existingSiteDiscountNote: "如已有网站，可商议直接接入；首页定制费用可优惠至 100 CHF 起（视接入难度而定）。",
     featuresForExistingSite: "选择需要接入的功能",
-    existingSiteFeatureRequired: "已有网站时，至少需要选择一项接入功能。",
+    existingSiteFeatureRequired: "已有网站时，至少需要选择一项接入功能。如需网站托管与代维护服务，欢迎联系我们评估方案。",
     contract: "合同年限",
     contract1Year: "1 年合同",
     contract3Years: "3 年合同",
@@ -112,11 +128,20 @@ const TEXT: Record<Locale, Labels> = {
     qrOrderFeature: "扫码点餐",
     takeawayOrderFeature: "外卖点餐",
     concurrentUsers: "最多同时在线点餐人数",
+    updateFrequency: "更新服务支持",
+    updateFrequencyMonthly: "基础支持（每月 1 次更新）",
+    updateFrequencyWeekly: "加强支持（每周更新）",
+    updateFrequencyDaily: "高频支持（每日更新）",
     monthly: "预估月费",
     annual: "预估年费",
     note: "一次性费用和月费均包含维护，不包含域名。",
     custom: "该组合需要沟通报价",
     includes: "维护费用已包含，域名费用不包含。",
+    baseUpdateNotice: "基础费用下，定制网页内容每月可免费更新 1 次。",
+    maintenanceIncludedTitle: "维护包含",
+    maintenanceSsl: "SSL 证书：为网站启用 HTTPS 加密，保护顾客在浏览和提交信息时的数据安全。",
+    maintenanceSeo: "SEO 维护：持续优化页面结构与关键词表现，提升餐厅在 Google 等搜索结果中的可见度。",
+    maintenanceMonitoring: "网站监控：持续监测网站可用性与异常状态，发现问题后可更快响应与处理。",
     contactTitle: "联系渠道",
     email: "邮箱",
     phone: "电话",
@@ -140,7 +165,8 @@ const TEXT: Record<Locale, Labels> = {
     existingSiteDiscountNote:
       "If you already have a website, direct integration can be discussed; homepage customization may be discounted starting from 100 CHF depending on integration complexity.",
     featuresForExistingSite: "Select features to integrate",
-    existingSiteFeatureRequired: "If a website already exists, at least one integration feature is required.",
+    existingSiteFeatureRequired:
+      "If a website already exists, at least one integration feature is required. If you need hosting and managed maintenance, please contact us for an assessment.",
     contract: "Contract term",
     contract1Year: "1 year contract",
     contract3Years: "3 years contract",
@@ -150,11 +176,22 @@ const TEXT: Record<Locale, Labels> = {
     qrOrderFeature: "QR ordering",
     takeawayOrderFeature: "Takeaway ordering",
     concurrentUsers: "Max concurrent online ordering users",
+    updateFrequency: "Update Service Support",
+    updateFrequencyMonthly: "Monthly updates",
+    updateFrequencyWeekly: "Weekly updates",
+    updateFrequencyDaily: "Daily updates",
     monthly: "Estimated monthly fee",
     annual: "Estimated yearly fee",
     note: "One-time and monthly fees include maintenance; domain is excluded.",
     custom: "This combination requires custom quote",
     includes: "Maintenance is included; domain registration is excluded.",
+    baseUpdateNotice: "Under the base plan, homepage custom content can be updated once per month for free.",
+    maintenanceIncludedTitle: "What maintenance includes",
+    maintenanceSsl: "SSL certificate: enables HTTPS encryption to protect customer data during browsing and form submissions.",
+    maintenanceSeo:
+      "SEO maintenance: continuously optimizes page structure and keyword performance to improve visibility on Google and other search engines.",
+    maintenanceMonitoring:
+      "Website monitoring: continuously tracks uptime and anomalies so issues can be detected and handled faster.",
     contactTitle: "Contact",
     email: "Email",
     phone: "Phone",
@@ -169,16 +206,17 @@ const TEXT: Record<Locale, Labels> = {
     desc: "Estimez le prix selon les fonctionnalités et les paliers de concurrence de commande.",
     oneTimeTitle: "Frais uniques de personnalisation de la page d’accueil",
     oneTimeDesc: "Le prix de base est 750 CHF. Le coût de personnalisation web diminue de 50 CHF par fonctionnalité activée.",
-    oneTimeLanguageCoverage: "Inclut par defaut le francais, l'allemand et l'anglais",
+    oneTimeLanguageCoverage: "Inclut par défaut le français, l'allemand et l'anglais",
     oneTimeLanguageNote:
-      ". Si vous souhaitez ajouter d'autres langues, un tarif complementaire peut etre discute selon le volume de contenu et la complexite de mise en oeuvre.",
+      ". Si vous souhaitez ajouter d'autres langues, un tarif complémentaire peut être discuté selon le volume de contenu et la complexité de mise en oeuvre.",
     existingSite: "Avez-vous déjà un site web ?",
     yes: "Oui",
     no: "Non",
     existingSiteDiscountNote:
       "Si vous avez déjà un site web, une intégration directe peut être discutée ; la personnalisation de la page d'accueil peut être réduite à partir de 100 CHF selon la complexité d'intégration.",
     featuresForExistingSite: "Sélectionnez les fonctionnalités à intégrer",
-    existingSiteFeatureRequired: "Si un site existe déjà, au moins une fonctionnalité d'intégration est requise.",
+    existingSiteFeatureRequired:
+      "Si un site existe déjà, au moins une fonctionnalité d'intégration est requise. Si vous avez besoin d'un service d'hébergement et de maintenance gérée, contactez-nous pour une évaluation.",
     contract: "Durée du contrat",
     contract1Year: "Contrat 1 an",
     contract3Years: "Contrat 3 ans",
@@ -188,11 +226,23 @@ const TEXT: Record<Locale, Labels> = {
     qrOrderFeature: "Commande par QR",
     takeawayOrderFeature: "Commande à emporter",
     concurrentUsers: "Nombre max d'utilisateurs de commande en ligne simultanés",
+    updateFrequency: "Support de mise à jour",
+    updateFrequencyMonthly: "Mises à jour mensuelles",
+    updateFrequencyWeekly: "Mises à jour hebdomadaires",
+    updateFrequencyDaily: "Mises à jour quotidiennes",
     monthly: "Frais mensuels estimés",
     annual: "Frais annuels estimés",
     note: "Les frais uniques et mensuels incluent la maintenance; le domaine est exclu.",
     custom: "Cette combinaison demande un devis personnalisé",
     includes: "Maintenance incluse ; coût du domaine exclu.",
+    baseUpdateNotice: "Avec le forfait de base, le contenu personnalisé du site peut être mis à jour gratuitement une fois par mois.",
+    maintenanceIncludedTitle: "Ce que la maintenance inclut",
+    maintenanceSsl:
+      "Certificat SSL : active le chiffrement HTTPS pour sécuriser les données clients lors de la navigation et des formulaires.",
+    maintenanceSeo:
+      "Maintenance SEO : optimise en continu la structure des pages et les mots-clés pour améliorer la visibilité sur Google et les moteurs de recherche.",
+    maintenanceMonitoring:
+      "Surveillance du site : contrôle en continu la disponibilité et les anomalies afin d'identifier et de traiter les incidents plus rapidement.",
     contactTitle: "Contact",
     email: "E-mail",
     phone: "Téléphone",
@@ -207,16 +257,17 @@ const TEXT: Record<Locale, Labels> = {
     desc: "Preis auf Basis von Funktionspaket und Gleichzeitigkeit bei Bestellungen schätzen.",
     oneTimeTitle: "Einmalige Kosten für Startseiten-Anpassung",
     oneTimeDesc: "Der Basispreis beträgt 750 CHF. Die Web-Anpassung sinkt pro aktivierter Funktion um 50 CHF.",
-    oneTimeLanguageCoverage: "Standardmassig sind Franzosisch, Deutsch und Englisch enthalten",
+    oneTimeLanguageCoverage: "Standardmäßig sind Französisch, Deutsch und Englisch enthalten",
     oneTimeLanguageNote:
-      ". Falls weitere Sprachen gewunscht sind, konnen Zusatzkosten je nach Inhaltsumfang und Umsetzungsaufwand abgestimmt werden.",
+      ". Falls weitere Sprachen gewünscht sind, können Zusatzkosten je nach Inhaltsumfang und Umsetzungsaufwand abgestimmt werden.",
     existingSite: "Haben Sie bereits eine Website?",
     yes: "Ja",
     no: "Nein",
     existingSiteDiscountNote:
       "Wenn Sie bereits eine Website haben, kann eine direkte Integration besprochen werden; die Startseiten-Anpassung kann je nach Integrationsaufwand ab 100 CHF reduziert werden.",
     featuresForExistingSite: "Wählen Sie die zu integrierenden Funktionen",
-    existingSiteFeatureRequired: "Wenn bereits eine Website vorhanden ist, muss mindestens eine Integrationsfunktion gewählt werden.",
+    existingSiteFeatureRequired:
+      "Wenn bereits eine Website vorhanden ist, muss mindestens eine Integrationsfunktion gewählt werden. Wenn Sie Hosting und betreute Wartung benötigen, kontaktieren Sie uns gerne für eine Einschätzung.",
     contract: "Vertragslaufzeit",
     contract1Year: "1-Jahres-Vertrag",
     contract3Years: "3-Jahres-Vertrag",
@@ -226,11 +277,23 @@ const TEXT: Record<Locale, Labels> = {
     qrOrderFeature: "QR-Bestellung",
     takeawayOrderFeature: "Mitnahmebestellung",
     concurrentUsers: "Maximal gleichzeitige Online-Besteller",
+    updateFrequency: "Aktualisierungsservice",
+    updateFrequencyMonthly: "Monatliche Updates",
+    updateFrequencyWeekly: "Wöchentliche Updates",
+    updateFrequencyDaily: "Tägliche Updates",
     monthly: "Geschätzte Monatsgebühr",
     annual: "Geschätzte Jahresgebühr",
     note: "Einmalige und monatliche Kosten enthalten Wartung; Domain ist nicht enthalten.",
     custom: "Diese Kombination erfordert ein individuelles Angebot",
     includes: "Wartung ist enthalten; Domainkosten sind ausgeschlossen.",
+    baseUpdateNotice: "Im Basispaket ist ein kostenloses Inhaltsupdate pro Monat für die individuelle Webseite enthalten.",
+    maintenanceIncludedTitle: "Was in der Wartung enthalten ist",
+    maintenanceSsl:
+      "SSL-Zertifikat: aktiviert HTTPS-Verschlüsselung und schützt Kundendaten beim Surfen und bei Formulareingaben.",
+    maintenanceSeo:
+      "SEO-Wartung: optimiert fortlaufend Seitenstruktur und Keywords, damit Ihr Restaurant bei Google und anderen Suchmaschinen besser gefunden wird.",
+    maintenanceMonitoring:
+      "Website-Monitoring: überwacht Verfügbarkeit und Auffälligkeiten laufend, damit Störungen schneller erkannt und behoben werden können.",
     contactTitle: "Kontakt",
     email: "E-Mail",
     phone: "Telefon",
@@ -251,6 +314,7 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
   const [hasQrOrder, setHasQrOrder] = useState(false);
   const [hasTakeawayOrder, setHasTakeawayOrder] = useState(false);
   const [concurrentInput, setConcurrentInput] = useState("50");
+  const [updateCadence, setUpdateCadence] = useState<UpdateCadence>("monthly");
 
   const result = useMemo(() => {
     const concurrentCount = Number.parseInt(concurrentInput, 10);
@@ -313,7 +377,8 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
       orderSurcharge = contractYears === 1 ? concurrent.surcharge1 : concurrent.surcharge3;
     }
 
-    const monthly = baseMonthly + reservationSurcharge + posSurcharge + orderSurcharge;
+    const cadenceSurcharge = hasSite === "no" ? UPDATE_CADENCE_SURCHARGE[updateCadence] : 0;
+    const monthly = baseMonthly + reservationSurcharge + posSurcharge + orderSurcharge + cadenceSurcharge;
     return {
       isCustom: false,
       setupFee,
@@ -321,7 +386,7 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
       annual: monthly * 12,
       concurrentCount: orderMode !== "none" ? concurrentCount : 0,
     };
-  }, [concurrentInput, contractYears, hasPos, hasReservation, hasQrOrder, hasTakeawayOrder, hasSite]);
+  }, [concurrentInput, contractYears, hasPos, hasReservation, hasQrOrder, hasTakeawayOrder, hasSite, updateCadence]);
 
   const orderMode: OrderMode = hasQrOrder && hasTakeawayOrder ? "both" : hasQrOrder || hasTakeawayOrder ? "single" : "none";
 
@@ -347,6 +412,7 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
     `Language: ${locale.toUpperCase()}`,
     `Has website: ${hasSite === "yes" ? "Yes" : "No"}`,
     `Contract years: ${contractYears}`,
+    ...(hasSite === "no" ? [`Update cadence: ${updateCadence}`] : []),
     `Features: ${selectedFeatures.length > 0 ? selectedFeatures.join(", ") : "None (static page)"}`,
     `Concurrent users: ${orderMode !== "none" ? result.concurrentCount || "-" : "N/A"}`,
   ];
@@ -436,6 +502,24 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
               </select>
             </div>
 
+            {hasSite === "no" ? (
+              <div className="flex flex-col">
+                <label htmlFor="update-cadence" className="mb-3 block text-sm font-medium text-[#1f1f1f]">
+                  {labels.updateFrequency}
+                </label>
+                <select
+                  id="update-cadence"
+                  className="calc-select"
+                  value={updateCadence}
+                  onChange={(event) => setUpdateCadence(event.target.value as UpdateCadence)}
+                >
+                  <option value="monthly">{labels.updateFrequencyMonthly}</option>
+                  <option value="weekly">{labels.updateFrequencyWeekly}</option>
+                  <option value="daily">{labels.updateFrequencyDaily}</option>
+                </select>
+              </div>
+            ) : null}
+
             {orderMode !== "none" ? (
               <div className="flex flex-col">
                 <label htmlFor="concurrent" className="mb-3 block text-sm font-medium text-[#1f1f1f]">
@@ -468,6 +552,7 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
                 <strong>{labels.oneTimeLanguageCoverage}</strong>
                 {labels.oneTimeLanguageNote}
               </p>
+              <p className="mt-2 text-sm text-[#3f3f46]">{labels.baseUpdateNotice}</p>
             </>
           )}
 
@@ -485,6 +570,15 @@ export function PricingCalculatorClient({ locale }: { locale: Locale }) {
             {selectedFeaturesText}
           </p>
         </aside>
+      </section>
+
+      <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
+        <h2 className="section-title text-2xl font-semibold">{labels.maintenanceIncludedTitle}</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[#3f3f46]">
+          <li>{labels.maintenanceSsl}</li>
+          <li>{labels.maintenanceSeo}</li>
+          <li>{labels.maintenanceMonitoring}</li>
+        </ul>
       </section>
 
       <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
